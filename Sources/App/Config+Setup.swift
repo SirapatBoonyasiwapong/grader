@@ -30,6 +30,7 @@ extension Config {
         preparations.append(EventProblem.self)
         preparations.append(Submission.self)
         preparations.append(ResultCase.self)
+        preparations.append(Class.self)
         
         // Migrations
         //preparations.append(P20170910.self)
