@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3F749FEF1F971AF600DF558A /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F749FEE1F971AF600DF558A /* Class.swift */; };
+		3F74A2641F97591500DF558A /* ClassesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74A2631F97591500DF558A /* ClassesController.swift */; };
 		OBJ_1052 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_973 /* Aliases.swift */; };
 		OBJ_1053 /* Base64Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_974 /* Base64Encoder.swift */; };
 		OBJ_1054 /* Byte+Alphabet.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_975 /* Byte+Alphabet.swift */; };
@@ -7171,6 +7172,7 @@
 
 /* Begin PBXFileReference section */
 		3F749FEE1F971AF600DF558A /* Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
+		3F74A2631F97591500DF558A /* ClassesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassesController.swift; sourceTree = "<group>"; };
 		OBJ_10 /* Droplet+Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Droplet+Setup.swift"; sourceTree = "<group>"; };
 		OBJ_100 /* Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		OBJ_1000 /* Transport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Transport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -9449,6 +9451,7 @@
 				OBJ_24 /* ProfileController.swift */,
 				OBJ_25 /* SubmissionsController.swift */,
 				OBJ_26 /* UsersController.swift */,
+				3F74A2631F97591500DF558A /* ClassesController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -14715,6 +14718,7 @@
 				OBJ_3362 /* Date+Formatting.swift in Sources */,
 				OBJ_3363 /* FileSystem.swift in Sources */,
 				OBJ_3364 /* DemoJob.swift in Sources */,
+				3F74A2641F97591500DF558A /* ClassesController.swift in Sources */,
 				OBJ_3365 /* Reswifq+VaporRedisClient.swift in Sources */,
 				OBJ_3366 /* SubmissionJob.swift in Sources */,
 				OBJ_3367 /* GuardMiddleware.swift in Sources */,
