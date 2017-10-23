@@ -29,17 +29,17 @@
         <input type="submit" class="ink-button" value="Login"/>
     </div>
 
-    <div class="ink-alert basic" role="alert">
+  <!--   <div class="ink-alert basic" role="alert">
         <button class="ink-dismiss">&times;</button>
         <p><b>Warning:</b> Wrong email or password !! </p>
     </div>
 
-    #if(!credentials){
+   #if(!credentials){
       <div class="ink-alert basic" role="alert">
           <button class="ink-dismiss">&times;</button>
           <p><b>Warning:</b> Wrong email or password !! </p>
       </div>
-    }
+    } -->
 
 </form>
 }

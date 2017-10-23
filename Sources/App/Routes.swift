@@ -29,6 +29,9 @@ final class Routes: RouteCollection {
             return try render("about", for: req, with: self.view)
         }
         
+        let classesController = ClassesController(view)
+        builder.get("/classes", handler: classesController.showClasses)
+        
                 
 
         

@@ -42,6 +42,7 @@ final class TeacherRoutes: RouteCollection {
         
         builder.get("users",Int.parameter, "changepassword", handler: loginController.changePassword)
         
-        builder.get("classes", handler: classesController.createClass)
+        builder.get("classes", "create", handler: classesController.createClassForm)
+        builder.post("classes", handler: classesController.classForm)
     }
 }

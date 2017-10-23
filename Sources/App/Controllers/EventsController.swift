@@ -49,13 +49,13 @@ final class EventsController: ResourceRepresentable {
     func eventNewSubmit(request: Request) throws -> ResponseRepresentable {
         guard
             let userId = request.user?.id,
-            //let iconLanguage = request.formData?["icon"],
+         //   let iconLanguage = request.formData?["icon"],
             let name = request.data["name"]?.string
         else {
             throw Abort.badRequest
         }
         
-        //let path = "/Users/student/Documents/Thesis-garder/grader/Public/icons/\(iconLanguage.name.string).jpg"
+       // let path = "/Users/student/Documents/Thesis-garder/grader/Public/icons/\(iconLanguage.name.string).png"
 
         
         // Extract
@@ -72,6 +72,10 @@ final class EventsController: ResourceRepresentable {
             .flatMap { rawDateTime in formatter.date(from: rawDateTime) }
         
         let languageRestriction = request.data["language_restriction"]?.string.flatMap { raw in Language(rawValue: raw) }
+        
+       /* if languageRestriction == Language(rawValue: "Swift"){
+            let path = "/Users/student/Documents/Thesis-garder/grader/Public/icons/swift.png"
+        }*/
         
 
         // Save & continue
@@ -241,6 +245,8 @@ final class EventsController: ResourceRepresentable {
         return Response(redirect: "/events/#(event.eventId)/problems")
         
     }
+    
+    
     
     
 }
