@@ -12,17 +12,18 @@ public final class ClassesController {
     //Show class
     func showClasses(request: Request) throws -> ResponseRepresentable {
         let classes = try Class.all()
-        return try view.make("Classes/classes", ["classes": classes])
+        return try render("Classes/classes", ["classes": classes], for: request, with: view)
 
     }
     
-    //Create class
+    //GET Create class
     func createClassForm(request: Request) throws -> ResponseRepresentable {
         
         return try render("Classes/class-new", [:], for: request, with: view)
 
     }
     
+    //POST Create class
     func classForm(request: Request) throws ->  ResponseRepresentable {
         guard let name = request.data["name"]?.string,
         let events = request.data["events"]?.string,

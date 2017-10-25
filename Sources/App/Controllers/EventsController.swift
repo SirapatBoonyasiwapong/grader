@@ -73,10 +73,6 @@ final class EventsController: ResourceRepresentable {
         
         let languageRestriction = request.data["language_restriction"]?.string.flatMap { raw in Language(rawValue: raw) }
         
-       /* if languageRestriction == Language(rawValue: "Swift"){
-            let path = "/Users/student/Documents/Thesis-garder/grader/Public/icons/swift.png"
-        }*/
-        
 
         // Save & continue
         let event = Event(
