@@ -18,6 +18,7 @@ let package = Package(
         .Package(url: "https://github.com/reswifq/redis-client-vapor", majorVersion: 1),
         .Package(url: "https://github.com/vapor/redis.git", majorVersion: 2),
         .Package(url: "https://github.com/vapor/fluent-provider.git", majorVersion: 1)
+   
 
     ],
     exclude: [
