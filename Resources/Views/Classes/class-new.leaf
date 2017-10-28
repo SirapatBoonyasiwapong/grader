@@ -1,0 +1,32 @@
+#extend("Layouts/base")
+
+#export("title") { Create Class }
+
+#export("content") {
+
+<h2>Create a new class</h2>
+
+<form action="/classes/create" method="POST" enctype="multipart/form-data" class="ink-form">
+
+    <div class="control-group all-20">
+        <label for="name">Class Name</label>
+        <div class="control">
+            <input type="text" class="form-control" id="name" name="name" />
+        </div>
+    </div>
+
+    <div class="control-group all-20">
+      <label for="event">Event</label>
+
+            <div class="pull-right button-group">
+                <a href="/events/new" class="ink-button"><span class="fa fa-plus"></span> Add Event</a>
+            </div>
+    </div>
+
+    <div class="control-group">
+        <input type="submit" class="ink-button blue" value="Submit"/>
+    </div>
+
+</form>
+
+}

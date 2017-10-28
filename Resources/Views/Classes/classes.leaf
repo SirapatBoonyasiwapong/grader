@@ -1,0 +1,19 @@
+#extend("Layouts/base")
+
+#export("title") { Classes }
+
+#export("content") {
+
+    #if(authenticatedUserHasTeacherRole) {
+        <div class="pull-right button-group">
+            <a href="/classes/create" class="ink-button"><span class="fa fa-plus"></span> Add Class</a>
+        </div>
+    }
+
+    <h2>Classes</h2>
+    <ul>
+    #loop(classes, "classes") {
+        <li><a href="/classes/#(class.id)">#(class.name)</a></li>
+    }
+    </ul>
+}
