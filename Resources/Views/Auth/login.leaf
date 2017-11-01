@@ -32,11 +32,11 @@
   <!--   <div class="ink-alert basic" role="alert">
         <button class="ink-dismiss">&times;</button>
         <p><b>Warning:</b> Wrong email or password !! </p>
-    </div>
+    </div> -->
 
-   #if(!credentials){
+<!--   #if(!credentials){
       <div class="ink-alert basic" role="alert">
-          <button class="ink-dismiss">&times;</button>
+          <button class="ink-danger">&times;</button>
           <p><b>Warning:</b> Wrong email or password !! </p>
       </div>
     } -->

@@ -1,3 +1,4 @@
+import Foundation
 import FluentProvider
 
 final class Class: Model {

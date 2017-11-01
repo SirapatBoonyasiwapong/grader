@@ -31,18 +31,12 @@ public final class ClassesController {
             else{
                 throw Abort.badRequest
         }
+        
         let classes = Class(name: name, events: events, users: users)
         try classes.save()
         
         return Response(redirect: "/")
     }
-    
-    //GET Edit class
-    func editClassForm(request: Request) throws -> ResponseRepresentable {
-        
-        return try render("Classes/class-edit", [:], for: request, with: view)
-    }
-    
-    
+
 }
 

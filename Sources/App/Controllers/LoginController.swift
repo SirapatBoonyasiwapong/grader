@@ -92,6 +92,21 @@ final class LoginController {
         guard let password = request.data["newpassword"]?.string else {
             throw Abort.badRequest
         }
+        
+      /*  if password != User(row: password) {
+            let userID = request.user!.id
+            let user = try User.find(userID)!
+            user.setPassword(password)
+            
+            try user.save()
+            return Response(redirect: "/login")
+            
+        }else{
+            return Response(redirect: "/changepassword").flash(.error, "Wrong email or password.")
+            }
+
+        }*/
+        
         let userID = request.user!.id
         let user = try User.find(userID)!
         user.setPassword(password)
@@ -101,6 +116,6 @@ final class LoginController {
         return Response(redirect: "/login")
         
     }
-
-    
 }
+    
+

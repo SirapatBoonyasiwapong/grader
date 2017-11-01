@@ -25,7 +25,7 @@
 
     <div class="control-group">
       <a href="/classes" class="ink-button blue">Submit</a>
-    <!--    <input type="submit" class="ink-button blue" value="Submit"/> -->
+    <!--   <input type="submit" class="ink-button blue" value="Submit"/>-->
     </div>
 
 </form>
