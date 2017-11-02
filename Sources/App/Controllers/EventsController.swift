@@ -49,13 +49,13 @@ final class EventsController: ResourceRepresentable {
     func eventNewSubmit(request: Request) throws -> ResponseRepresentable {
         guard
             let userId = request.user?.id,
-            let iconLanguage = request.formData?["icon"],
+          //  let iconLanguage = request.formData?["icon"],
             let name = request.data["name"]?.string
         else {
             throw Abort.badRequest
         }
         
-        let path = "/Users/student/Documents/Thesis-garder/grader/Public/icons/\(iconLanguage.name.string).png"
+      //  let path = "/Users/student/Documents/Thesis-garder/grader/Public/icons/\(iconLanguage.name.string).png"
         
         
 

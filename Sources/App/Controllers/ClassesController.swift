@@ -25,14 +25,12 @@ public final class ClassesController {
     
     //POST Create class
     func classForm(request: Request) throws -> ResponseRepresentable {
-        guard let name = request.data["name"]?.string,
-        let events = request.data["events"]?.string,
-        let users = request.data["users"]?.string
+        guard let name = request.data["name"]?.string
             else{
                 throw Abort.badRequest
         }
         
-        let classes = Class(name: name, events: events, users: users)
+        let classes = Class(name: name, events: "", users: "")
         try classes.save()
         
         return Response(redirect: "/")
