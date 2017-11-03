@@ -1,0 +1,20 @@
+#extend("Layouts/base")
+
+#export("title") { #(class.name) }
+
+#export("content") {
+
+<h2>#(class.name)</h2>
+
+<table class="ink-table">
+  <thead>
+    <tr>
+      <th class="align-left">Name</th>
+      <th class="align-left">Username</th>
+      <th class="align-left">Role</th>
+    </tr>
+  </thead>
+  <tbody>
+
+
+}

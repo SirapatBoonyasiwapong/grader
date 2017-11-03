@@ -1,0 +1,15 @@
+#extend("Layouts/base")
+
+#export("title") { #(class.name) }
+
+#export("content") {
+
+<div class="pull-right button-group">
+      <a href="/classes/#(class.id)/join" class="ink-button"><span class="fa fa-plus"></span> Join Class</a>
+</div>
+
+<div class="control-group all-20">
+  <h2>#(class.name)</h2>
+</div>
+
+}

@@ -35,6 +35,18 @@ public final class ClassesController {
         
         return Response(redirect: "/")
     }
+    
+    //GET Join in class
+    func joinClass(request: Request) throws -> ResponseRepresentable {
+         let className = try request.parameters.next(Class.self)
+         return try render("Classes/join-class", ["class": className], for: request, with: view)
+    }
+    
+    func joinInClass(request: Request) throws -> ResponseRepresentable {
+        let className = try request.parameters.next(Class.self)
+        return try render("Classes/join-in-class", ["class": className], for: request, with: view)
+    }
+
 
 }
 

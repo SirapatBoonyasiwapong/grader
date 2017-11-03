@@ -195,7 +195,7 @@ final class EventsController: ResourceRepresentable {
     func eventEditForm(request: Request) throws -> ResponseRepresentable {
         let event = try request.parameters.next(Event.self)
         
-       let dateformatter = DateFormatter()
+        let dateformatter = DateFormatter()
         dateformatter.dateFormat = "yyyy-MM-dd"
         let timeformatter = DateFormatter()
         timeformatter.dateFormat = "HH:mm"
