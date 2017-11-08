@@ -14,7 +14,17 @@
       <th class="align-left">Role</th>
     </tr>
   </thead>
-</table>
+  <tbody>
 
+  #loop(users, "user"){
+    <tr>
+      <td>#(user.name)</td>
+      <td>#(user.username)</td>
+      <td>#(user.role)</td>
+    </tr>
+
+    }
+  </tbody>
+</table>
 
 }

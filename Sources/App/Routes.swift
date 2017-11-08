@@ -30,8 +30,8 @@ final class Routes: RouteCollection {
         }
         
         let classesController = ClassesController(view)
-        builder.get("/classes", handler: classesController.showClasses)
-        builder.get("classes", Class.parameter, handler: classesController.joinClass)
+        builder.get("classes", handler: classesController.showClasses)
+       // builder.get("classes", Int.parameter, handler: classesController.joinClass)
                 
 
         

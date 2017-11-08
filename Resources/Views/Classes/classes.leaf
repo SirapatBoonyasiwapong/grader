@@ -13,7 +13,7 @@
     <h2>Classes</h2>
     <ul>
     #loop(classes, "class") {
-        <li><a href="/classes/#(class.id)">#(class.name)</a></li>
+        <li><a href="/classes/#(class.id)/test">#(class.name)</a></li>
     }
     </ul>
 }
