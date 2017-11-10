@@ -39,10 +39,12 @@ public final class ClassesController {
     //GET Join in class
     func joinClass(request: Request) throws -> ResponseRepresentable {
         let className = try request.parameters.next(Class.self)
-         return try render("Classes/join-class", ["class": className], for: request, with: view)
+        return try render("Classes/join-class", ["class": className], for: request, with: view)
     }
 
     func joinInClass(request: Request) throws -> ResponseRepresentable {
+//        let classID = try request.parameters.next(Int.self)
+//        let className = try Class.find(classID)
         let className = try request.parameters.next(Class.self)
         let user = try User.all()
         

@@ -12,6 +12,7 @@
       <th class="align-left">Name</th>
       <th class="align-left">Username</th>
       <th class="align-left">Role</th>
+
     </tr>
   </thead>
   <tbody>
@@ -21,6 +22,10 @@
       <td>#(user.name)</td>
       <td>#(user.username)</td>
       <td>#(user.role)</td>
+      #if(authenticatedUserHasTeacherRole) {
+        <td><a href="/users/#(user.id)/edit" class="btn btn-primary">Edit Profile</a></td>
+        <td><a href="/users/#(user.id)/delete" class="btn btn-danger">Delete</a></td>
+      }
     </tr>
 
     }
