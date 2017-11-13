@@ -52,5 +52,25 @@ public final class ClassesController {
 
     }
     
+    func acceptUser(request: Request) throws -> ResponseRepresentable {
+        let userID = try request.parameters.next(Int.self)
+        if let user = try Class.find(userID){
+             let user = request.data["user"]?.string
+             let classes = Class(name: "", events: "", users: user!)
+             try classes.save()
+        }
+             return Response(redirect: "/classes/#(class.id)/join")
+    
 }
+    
+    func cancelUser(request: Request) throws -> ResponseRepresentable {
+        let userID = try request.parameters.next(Int.self)
+        if let user = try Class.find(userID){
+            try user.delete()
+        }
+        
+        return Response(redirect: "/classes/#(class.id)/join")
+    }
+}
+
 
