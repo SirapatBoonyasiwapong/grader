@@ -5,6 +5,7 @@ final class Class: Model {
     var name: String
     var events: String
     var users: String
+    var ownerID: Identifier
     
     let storage = Storage()
     
@@ -12,13 +13,15 @@ final class Class: Model {
         name = try row.get("name")
         events = try row.get("events")
         users = try row.get("users")
+        ownerID = try row.get("ownerID")
         
     }
     
-    init(name: String, events: String, users: String) {
+    init(name: String, events: String, users: String, ownerID: Identifier) {
         self.name = name
         self.events = events
         self.users = users
+        self.ownerID = ownerID
         
     }
     
@@ -36,11 +39,10 @@ final class Class: Model {
 extension Class: NodeRepresentable {
     func makeNode(in context: Context?) throws -> Node {
         var node = Node(context)
+        try node.set("id", id?.string ?? "")
         try node.set("name", name)
         try node.set("events", events)
         try node.set("users", users)
-        
-        
         return node
     }
 }

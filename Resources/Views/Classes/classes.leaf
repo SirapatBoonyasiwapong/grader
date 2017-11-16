@@ -14,6 +14,7 @@
     <ul>
     #loop(classes, "class") {
         <li><a href="/classes/#(class.id)">#(class.name)</a></li>
+
     }
     </ul>
 }
