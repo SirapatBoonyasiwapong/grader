@@ -5,9 +5,10 @@ final class ClassUser: Model, NodeRepresentable {
     
     var classID: Identifier
     var userID: Identifier
-    var identity: Int
+    var status: String
+
     
-    var `class`: Parent<ClassUser, Class> {
+    var classroom: Parent<ClassUser, Class> {
         return parent(id: classID)
     }
     
@@ -15,28 +16,28 @@ final class ClassUser: Model, NodeRepresentable {
         return parent(id: userID)
     }
     
-    var joinClass: Student<ClassUser, JoinClass> {
-        return student()
-    }
-    
     let storage = Storage()
     
     init(row: Row) throws {
         classID = try row.get("class_id")
         userID = try row.get("user_id")
-        identity = try row.get("identity")
+        status = try row.get("status")
+
     }
     
-    init(classID: Identifier, userID: Identifier, identity: Int) {
+    init(classID: Identifier, userID: Identifier, status: String) {
         self.classID = classID
         self.userID = userID
-        self.identity = identity
+        self.status = status
+     
+    }
     
     func makeRow() throws -> Row {
         var row = Row()
         try row.set("class_id", classID)
         try row.set("user_id", userID)
-        try row.set("identity", identity)
+        try row.set("status", status)
+
         return row
     }
     
@@ -46,8 +47,7 @@ final class ClassUser: Model, NodeRepresentable {
             "id": id!.string!,
             "classID": classID,
             "userID": userID,
-            "identity": identity,
+            "status": status,
             "user": user.makeNode(in: context)])
     }
-}
 }
