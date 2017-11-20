@@ -16,6 +16,7 @@ final class TeacherRoutes: RouteCollection {
         let userController = UsersController(view)
         let loginController = LoginController(view)
         let classesController = ClassesController(view)
+        let joinClassController = JoinClassController(view)
         
         builder.get("events/new", handler: eventsController.eventNew)
         builder.post("events/new", handler: eventsController.eventNewSubmit)
@@ -44,6 +45,8 @@ final class TeacherRoutes: RouteCollection {
         
         builder.get("classes", "create", handler: classesController.createClassForm)
         builder.post("classes", "create", handler: classesController.classForm)
+        
+        builder.get("classes", Int.parameter, handler: joinClassController.studentJoin)
         
       //  builder.get("classes", Class.parameter, "join", handler: classesController.joinInClassTeacher)
     }
