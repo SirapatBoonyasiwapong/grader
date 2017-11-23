@@ -21,10 +21,8 @@
       <td>#(user.name)</td>
       <td>#(user.username)</td>
       <td>#(user.role)</td>
-      #if(authenticatedUserHasTeacherRole) {
-        <td><a href="/classes/#(class.id)/join" class="btn btn-primary">Accept</a></td>
-        <td><a href="/classes/#(class.id)/join" class="btn btn-danger">Cancel</a></td>
-      }
+      <td><a href="/classes/#(class.id)/join" class="btn btn-primary">Accept</a></td>
+      <td><a href="/classes/#(class.id)/join" class="btn btn-danger">Cancel</a></td>
     </tr>
 
     }

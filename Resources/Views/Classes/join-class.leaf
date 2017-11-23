@@ -5,16 +5,16 @@
 #export("content") {
 
 <div class="pull-right button-group">
-      <a href="/classes/#(class.id)" class="ink-button"><span class="fa fa-plus"></span> Join Class</a>
+    <a href="/classes/#(class.id)" onclick="myFunction()" class="ink-button"><span class="fa fa-plus"></span> Join Class</a>
 </div>
 
-if(){
+#if(){
   <div class="pull-right button-group">
       <h3 style="color: red">Waiting</h3>
   </div>
 }
 
-if(){
+#if(acceptUserHasTeacherRole === "Accept"){
   <div class="pull-right button-group">
     <h3 style="color: green">Joined</h3>
   </div>
@@ -23,5 +23,6 @@ if(){
 <div class="control-group all-20">
   <h2>#(class.name)</h2>
 </div>
+
 
 }

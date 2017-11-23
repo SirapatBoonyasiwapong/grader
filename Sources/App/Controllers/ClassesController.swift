@@ -38,12 +38,39 @@ public final class ClassesController {
     
     //GET Join in class Student
     func joinClass(request: Request) throws -> ResponseRepresentable {
-        let classID = try request.parameters.next(Int.self)
-        let className = try Class.find(classID)
-
-        return try render("Classes/join-class", ["class": className], for: request, with: view)
+        let className = try request.parameters.next(Class.self)
+        
+        guard let user = request.user, className.isVisible(to: user) else {
+            throw Abort.unauthorized
+        }
+        var query = try Submission.makeQuery()
+            .join(ClassUser.self, baseKey: "class_user_id", joinedKey: "id")
+            .filter(ClassUser.self, "class_id", className.id).sort("created_at", .descending).limit(20)
+        if user.role == .student{
+            query = try query.filter(JoinClass.self, "user_id", request.user!.id)
+        }
+        let joinedClasses = try query.all()
+        
+        var shouldRefreshPageAutomatically = false
+        
+        var joinedClass: [Node] = []
+        for submission in joinedClasses {
+            var joinedClasses = try submission.makeNode(in: nill)
+            let user = try submission.user.get()!
+            let classroom = try submission.classUser.get()!.user.get()!
+            joinedClasses["className"] = classroom.name.makeNode(in: nill)
+            joinedClasses["userName"] = user.name.makeNode(in: nill)
+            joinedClass.append(joinedClasses)
+            
+            if submission.state == .submitted || submission.state == .gradingInProgress {
+                shouldRefreshPageAutomatically = true
+            }
+        }
+        return try render("Classes/join-class", ["class": className,
+                                                 "joinedClasses": joinedClasses,
+                                                 "shouldRefresh": shouldRefreshPageAutomatically],
+                          for: request, with: view)
     }
-
     
     //GET Join in class Teacher
 //    func joinInClassTeacher(request: Request) throws -> ResponseRepresentable {

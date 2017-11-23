@@ -61,4 +61,10 @@ extension Class: Preparation {
     static func revert(_ database: Database) throws {
         try database.delete(self)
     }
+    
+    func isVisible(to user: User) -> Bool {
+        return user.has(role: .teacher) || user.has(role: .admin)
+    }
+    
+
 }
