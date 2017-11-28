@@ -3,6 +3,7 @@ import FluentProvider
 
 final class JoinClass: Model, NodeRepresentable {
     
+   
     var classUserID: Identifier
     var userID: Identifier
     
