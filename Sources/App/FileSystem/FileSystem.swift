@@ -4,9 +4,9 @@ import Node
 class FileSystem {
     
     // TODO: use drop.configUrl
-    private let defaultSubmissionsPath = "/app/uploads/submissions/"
-    private let defaultProblemFilesPath = "/app/uploads/problems/"
-    private let defaultCompilationPath = "/app/srctest/"
+    private let defaultSubmissionsPath = "\(uploadPath)submissions/"
+    private let defaultProblemFilesPath = "\(uploadPath)problems/"
+    private let defaultCompilationPath = "\(compilePath)"
     
     // TODO: pass in some configuration that allows custom paths
     init() {

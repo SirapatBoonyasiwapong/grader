@@ -75,7 +75,6 @@ public final class ClassesController {
                                                  "shouldRefresh": shouldRefreshPageAutomatically
                                                 ], for: request, with: view)
     }
-    
 
     
 }

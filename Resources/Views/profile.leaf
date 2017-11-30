@@ -5,12 +5,11 @@
 #export("content") {
   <h2>Hello</h2>
 
-  <img src="/uploads/#(user.id).jpg" style="width: 150px; height: 150px" class="push-right">
+  <img src="/uploads/#(user.id).jpg" style="width: 150px; height: 150px; float: right">
 
   <h5>Name : #(user.name)</h5>
   <p>Student ID : #(user.username)</p>
 
   <a href="/changepassword" class="ink-button blue">Change password</a>
   <a href="/edit" class="ink-button blue">Edit Profile</a>
-
 }

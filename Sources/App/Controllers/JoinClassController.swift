@@ -19,33 +19,33 @@ public final class JoinClassController {
     }
     
     //GET Join in class Teacher
-    func joinInClassTeacher(request: Request) throws -> ResponseRepresentable {
-        let className = try request.parameters.next(Class.self)
-        let user = try User.all()
-        
-        return try render("Classes/join-in-class", ["class": className,"users": user], for: request, with: view)
-        
-    }
-    
-    func acceptUser(request: Request) throws -> ResponseRepresentable {
-        let userID = try request.parameters.next(Int.self)
-        if let user = try Class.find(userID){
-            let user = request.data["user"]?.string
-//            let classes = Class(name: "", events: "", users: user!)
-//            try classes.save()
-        }
-        return Response(redirect: "/classes/#(class.id)/join")
-        
-    }
-    
-    func cancelUser(request: Request) throws -> ResponseRepresentable {
-        let userID = try request.parameters.next(Int.self)
-        if let user = try Class.find(userID){
-            try user.delete()
-        }
-        
-        return Response(redirect: "/classes/#(class.id)/join")
-    }
+//    func joinInClassTeacher(request: Request) throws -> ResponseRepresentable {
+//        let className = try request.parameters.next(Class.self)
+//        let user = try User.all()
+//        
+//        return try render("Classes/join-in-class", ["class": className,"users": user], for: request, with: view)
+//        
+//    }
+//    
+//    func acceptUser(request: Request) throws -> ResponseRepresentable {
+//        let userID = try request.parameters.next(Int.self)
+//        if let user = try Class.find(userID){
+//            let user = request.data["user"]?.string
+////            let classes = Class(name: "", events: "", users: user!)
+////            try classes.save()
+//        }
+//        return Response(redirect: "/classes/#(class.id)/join")
+//        
+//    }
+//    
+//    func cancelUser(request: Request) throws -> ResponseRepresentable {
+//        let userID = try request.parameters.next(Int.self)
+//        if let user = try Class.find(userID){
+//            try user.delete()
+//        }
+//        
+//        return Response(redirect: "/classes/#(class.id)/join")
+//    }
 
 //    
 //    func form(request: Request) throws -> ResponseRepresentable {

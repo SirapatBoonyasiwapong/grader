@@ -42,7 +42,7 @@ public final class UsersController {
             }
             try user.save()
             
-            let path = "/Users/student/Documents/Thesis-garder/grader/Public/uploads/\(user.id!.string!).jpg"
+            let path = "\(uploadPath)\(user.id!.string!).jpg"
             _ = save(bytes: imageUser.bytes!, path: path)
         }
         

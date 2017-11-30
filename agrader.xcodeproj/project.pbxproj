@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63A1B2C71FD0097500069325 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A1B2C61FD0097500069325 /* Environment.swift */; };
 		OBJ_1061 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_982 /* Aliases.swift */; };
 		OBJ_1062 /* Base64Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_983 /* Base64Encoder.swift */; };
 		OBJ_1063 /* Byte+Alphabet.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_984 /* Byte+Alphabet.swift */; };
@@ -7178,6 +7179,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		63A1B2C61FD0097500069325 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		OBJ_10 /* Droplet+Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Droplet+Setup.swift"; sourceTree = "<group>"; };
 		OBJ_100 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		OBJ_1000 /* UnsignedInteger+Shifting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnsignedInteger+Shifting.swift"; sourceTree = "<group>"; };
@@ -11265,6 +11267,7 @@
 				OBJ_55 /* Runners */,
 				OBJ_62 /* ViewRenderers */,
 				OBJ_67 /* Database */,
+				63A1B2C61FD0097500069325 /* Environment.swift */,
 			);
 			name = App;
 			path = Sources/App;
@@ -14756,6 +14759,7 @@
 				OBJ_3389 /* JoinClassStatus.swift in Sources */,
 				OBJ_3390 /* Language.swift in Sources */,
 				OBJ_3391 /* Problem.swift in Sources */,
+				63A1B2C71FD0097500069325 /* Environment.swift in Sources */,
 				OBJ_3392 /* ProblemCase.swift in Sources */,
 				OBJ_3393 /* ResultCase.swift in Sources */,
 				OBJ_3394 /* Submission.swift in Sources */,

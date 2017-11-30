@@ -58,7 +58,7 @@ final class LoginController {
     func register(_ request: Request) throws -> ResponseRepresentable {
         guard let email = request.data["email"]?.string,
             let password = request.data["password"]?.string,
-            let imageUser = request.formData?["image"],
+     
             let name = request.data["name"]?.string else {
                 
                 throw Abort.badRequest
@@ -67,8 +67,11 @@ final class LoginController {
         let user = User(name: name, username: email, password: password, role: .student)
         try user.save()
         
-        let path = "/Users/student/Documents/Thesis-garder/grader/Public/uploads/\(user.id!.string!).jpg"
-        _ = save(bytes: imageUser.bytes!, path: path)
+        
+        if let imageUser = request.formData?["image"] {
+            let path = "\(uploadPath)\(user.id!.string!).jpg"
+            _ = save(bytes: imageUser.bytes!, path: path)
+        }
         
         
         let credentials = Password(username: email, password: password)
