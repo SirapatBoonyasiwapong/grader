@@ -17,7 +17,6 @@ final class ClassUser: Model, NodeRepresentable {
     }
     
     var joinClasses: Children<ClassUser, JoinClass> {
-
         return children()
     }
     

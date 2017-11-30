@@ -44,65 +44,39 @@ public final class ClassesController {
         guard let user = request.user, className.isVisible(to: user) else {
             throw Abort.unauthorized
         }
+        
         var query = try JoinClass.makeQuery()
             .join(ClassUser.self, baseKey: "class_user_id", joinedKey: "id")
-            .filter(ClassUser.self, "class_id", className.id).sort("created_at", .descending).limit(20)
+            .filter(ClassUser.self, "class_id", className.id).sort("status", .descending).limit(20)
         
-        if user.role == .student{
+        if user.role == .student {
             query = try query.filter(JoinClass.self, "user_id", request.user!.id)
         }
         
-        let joinedClasses = try query.all()
+        let joinClasses = try query.all()
         
         var shouldRefreshPageAutomatically = false
         
-        var joinedClass: [Node] = []
-        for joinClass in joinedClasses {
-            var joinedClasses = try joinClass.makeNode(in: nil)
+        var joinedClasses: [Node] = []
+        for joinClass in joinClasses {
+            var joinedClass = try joinClass.makeNode(in: nil)
             let user = try joinClass.user.get()!
             let classroom = try joinClass.classUser.get()!.user.get()!
-            joinedClasses["className"] = classroom.name.makeNode(in: nil)
-            joinedClasses["userName"] = user.name.makeNode(in: nil)
-            joinedClass.append(joinedClasses)
+            joinedClass["className"] = classroom.name.makeNode(in: nil)
+            joinedClass["userName"] = user.name.makeNode(in: nil)
+            joinedClasses.append(joinedClass)
             
-//            if joinClass.state == .joined || joinClass.state == .waiting {
-//                shouldRefreshPageAutomatically = true
-//            }
+            if joinClass.joinClassStatus == .joined || joinClass.joinClassStatus == .waiting {
+               shouldRefreshPageAutomatically = true
+            }
         }
         return try render("Classes/join-class", ["class": className,
                                                  "joinedClasses": joinedClasses,
-                                                 "shouldRefresh": shouldRefreshPageAutomatically],
-                          for: request, with: view)
+                                                 "shouldRefresh": shouldRefreshPageAutomatically
+                                                ], for: request, with: view)
     }
     
-    //GET Join in class Teacher
-//    func joinInClassTeacher(request: Request) throws -> ResponseRepresentable {
-//        let className = try request.parameters.next(Class.self)
-//        let user = try User.all()
-//        
-//        return try render("Classes/join-in-class", ["class": className,"users": user], for: request, with: view)
-//
-//    }
-//    
-//    func acceptUser(request: Request) throws -> ResponseRepresentable {
-//        let userID = try request.parameters.next(Int.self)
-//        if let user = try Class.find(userID){
-//             let user = request.data["user"]?.string
-//             let classes = Class(name: "", events: "", users: user!)
-//             try classes.save()
-//        }
-//             return Response(redirect: "/classes/#(class.id)/join")
-//    
-//}
-//    
-//    func cancelUser(request: Request) throws -> ResponseRepresentable {
-//        let userID = try request.parameters.next(Int.self)
-//        if let user = try Class.find(userID){
-//            try user.delete()
-//        }
-//        
-//        return Response(redirect: "/classes/#(class.id)/join")
-//    }
+
     
 }
 

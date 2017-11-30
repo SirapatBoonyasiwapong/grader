@@ -1,0 +1,7 @@
+#equal(joinClass.joinClassStatus, "0") {
+  <span class="ink-label green">Joined</span>
+} ##equal(joinClass.joinClassStatus, "1") {
+  <span class="ink-label red">Waiting</span>
+} ##else() {
+  <span class="ink-label red">Unknown</span>
+}

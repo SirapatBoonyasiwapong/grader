@@ -41,13 +41,13 @@
       "package": "Console",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/console.git",
-      "version": "2.2.0"
+      "version": "2.3.0"
     },
     {
       "package": "Core",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/core.git",
-      "version": "2.1.2"
+      "version": "2.2.0"
     },
     {
       "package": "Crypto",
@@ -77,13 +77,13 @@
       "package": "Fluent",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/fluent.git",
-      "version": "2.4.1"
+      "version": "2.4.2"
     },
     {
       "package": "FluentProvider",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/fluent-provider.git",
-      "version": "1.2.0"
+      "version": "1.3.0"
     },
     {
       "package": "JSON",
@@ -113,13 +113,13 @@
       "package": "MySQL",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/mysql.git",
-      "version": "2.0.2"
+      "version": "2.0.3"
     },
     {
       "package": "MySQLDriver",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/mysql-driver.git",
-      "version": "2.0.2"
+      "version": "2.0.3"
     },
     {
       "package": "MySQLProvider",
@@ -179,7 +179,7 @@
       "package": "Sockets",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/sockets.git",
-      "version": "2.2.0"
+      "version": "2.2.1"
     },
     {
       "package": "TLS",
@@ -191,7 +191,7 @@
       "package": "Validation",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/validation.git",
-      "version": "1.1.0"
+      "version": "1.1.1"
     },
     {
       "package": "ValidationProvider",
@@ -203,7 +203,7 @@
       "package": "Vapor",
       "reason": null,
       "repositoryURL": "https://github.com/vapor/vapor.git",
-      "version": "2.2.2"
+      "version": "2.4.0"
     },
     {
       "package": "VaporRedisClient",
