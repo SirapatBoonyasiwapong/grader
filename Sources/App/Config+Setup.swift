@@ -31,8 +31,9 @@ extension Config {
         preparations.append(Submission.self)
         preparations.append(ResultCase.self)
         preparations.append(Class.self)
-//        preparations.append(ClassUser.self)
-//        preparations.append(JoinClass.self)
+        preparations.append(ClassUser.self)
+
+
         
         // Migrations
         //preparations.append(P20170910.self)

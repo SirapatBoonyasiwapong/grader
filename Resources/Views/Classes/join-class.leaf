@@ -5,7 +5,7 @@
 #export("content") {
 
 <div class="pull-right button-group">
-    <a href="/classes/#(class.id)" class="ink-button"><span class="fa fa-plus"></span> Join Class</a>
+    <a href="/classes/#(class.id)/join" class="ink-button"><span class="fa fa-plus"></span> Join Class</a>
 </div>
 
 #equal(joinClass.joinClassStatus, "0"){

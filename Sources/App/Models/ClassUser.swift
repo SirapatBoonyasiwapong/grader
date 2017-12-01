@@ -55,3 +55,21 @@ final class ClassUser: Model, NodeRepresentable {
             "user": user.makeNode(in: context)])
     }
 }
+
+
+extension ClassUser: Preparation {
+    static func prepare(_ database: Database) throws {
+        try database.create(self) { builder in
+            builder.id()
+            builder.parent(Class.self, optional: false)
+            builder.parent(User.self, optional: false)
+            builder.string("status")
+            
+        }
+    }
+    
+    static func revert(_ database: Database) throws {
+        try database.delete(self)
+    }
+
+}
