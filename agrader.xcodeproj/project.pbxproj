@@ -1381,8 +1381,6 @@
 		OBJ_3387 /* ComparisonMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* ComparisonMethod.swift */; };
 		OBJ_3388 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* Event.swift */; };
 		OBJ_3389 /* EventProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* EventProblem.swift */; };
-		OBJ_3390 /* JoinClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* JoinClass.swift */; };
-		OBJ_3391 /* JoinClassStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* JoinClassStatus.swift */; };
 		OBJ_3392 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_49 /* Language.swift */; };
 		OBJ_3393 /* Problem.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_50 /* Problem.swift */; };
 		OBJ_3394 /* ProblemCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* ProblemCase.swift */; };
@@ -7556,7 +7554,6 @@
 		OBJ_467 /* Config+ClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Config+ClientFactory.swift"; sourceTree = "<group>"; };
 		OBJ_468 /* EngineClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineClient.swift; sourceTree = "<group>"; };
 		OBJ_469 /* FoundationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationClient.swift; sourceTree = "<group>"; };
-		OBJ_47 /* JoinClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinClass.swift; sourceTree = "<group>"; };
 		OBJ_470 /* Responder+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Responder+Helpers.swift"; sourceTree = "<group>"; };
 		OBJ_472 /* Config+ServerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Config+ServerFactory.swift"; sourceTree = "<group>"; };
 		OBJ_473 /* EngineServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineServer.swift; sourceTree = "<group>"; };
@@ -7565,7 +7562,6 @@
 		OBJ_476 /* ServerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerProtocol.swift; sourceTree = "<group>"; };
 		OBJ_478 /* Abort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Abort.swift; sourceTree = "<group>"; };
 		OBJ_479 /* AbortError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbortError.swift; sourceTree = "<group>"; };
-		OBJ_48 /* JoinClassStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinClassStatus.swift; sourceTree = "<group>"; };
 		OBJ_480 /* ErrorMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMiddleware.swift; sourceTree = "<group>"; };
 		OBJ_481 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		OBJ_483 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -10080,8 +10076,6 @@
 				OBJ_44 /* ComparisonMethod.swift */,
 				OBJ_45 /* Event.swift */,
 				OBJ_46 /* EventProblem.swift */,
-				OBJ_47 /* JoinClass.swift */,
-				OBJ_48 /* JoinClassStatus.swift */,
 				OBJ_49 /* Language.swift */,
 				OBJ_50 /* Problem.swift */,
 				OBJ_51 /* ProblemCase.swift */,
@@ -14756,8 +14750,6 @@
 				OBJ_3387 /* ComparisonMethod.swift in Sources */,
 				OBJ_3388 /* Event.swift in Sources */,
 				OBJ_3389 /* EventProblem.swift in Sources */,
-				OBJ_3390 /* JoinClass.swift in Sources */,
-				OBJ_3391 /* JoinClassStatus.swift in Sources */,
 				OBJ_3392 /* Language.swift in Sources */,
 				OBJ_3393 /* Problem.swift in Sources */,
 				OBJ_3394 /* ProblemCase.swift in Sources */,

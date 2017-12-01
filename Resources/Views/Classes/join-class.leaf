@@ -5,19 +5,16 @@
 #export("content") {
 
 <div class="pull-right button-group">
-    <a href="/classes/#(class.id)/join" class="ink-button"><span class="fa fa-plus"></span> Join Class</a>
-</div>
-
-#equal(joinClass.joinClassStatus, "0"){
-  <div class="pull-right button-group">
+  #equal(classUser.status, "Joined"){
     <h3 style="color: green">Joined</h3>
-  </div>
-}
-##equal(joinClass.joinClassStatus, "1"){
-  <div class="pull-right button-group">
+  }
+  ##equal(classUser.status, "Waiting"){
     <h3 style="color: red">Waiting</h3>
-  </div>
-}
+  }
+  ##else() {
+    <a href="/classes/#(class.id)/join" class="ink-button" id="JoinClassButton"><span class="fa fa-plus"></span> Join Class</a>
+  }
+</div>
 
 <div class="control-group all-20">
   <h2>#(class.name)</h2>

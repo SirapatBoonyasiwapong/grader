@@ -25,8 +25,8 @@
       <td><a href="/classes/#(class.id)/join" class="btn btn-primary">Accept</a></td>
       <td><a href="/classes/#(class.id)/join" class="btn btn-danger">Cancel</a></td>
     </tr>
-
     }
+    
   </tbody>
 </table>
 

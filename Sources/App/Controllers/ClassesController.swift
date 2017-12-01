@@ -40,7 +40,11 @@ public final class ClassesController {
     func showClass(request: Request) throws -> ResponseRepresentable {
 
         let classObj = try request.parameters.next(Class.self)
-        return try render("Classes/join-class", ["class" : classObj], for: request, with: view)
+        
+        let classUser = try ClassUser.makeQuery().filter("user_id", request.user!.id!)
+            .filter("class_id", classObj.id!).first()
+        
+        return try render("Classes/join-class", ["class": classObj, "classUser": classUser], for: request, with: view)
 //        guard let user = request.user, className.isVisible(to: user) else {
 //            throw Abort.unauthorized
 //        }
@@ -83,7 +87,7 @@ public final class ClassesController {
         let classUserObj = ClassUser(classID: classObj.id!, userID: request.user!.id!, status: "Waiting")
         try classUserObj.save()
         
-        return Response(redirect: "/classes")
+        return Response(redirect: "/classes/\(classObj.id!.string!)")
         
     }
 }

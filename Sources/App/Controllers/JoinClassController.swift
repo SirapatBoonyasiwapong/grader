@@ -8,36 +8,26 @@ public final class JoinClassController {
     init(_ view: ViewRenderer) {
         self.view = view
     }
-    
-    //Teacher submit student
-    //GET classes/#(class.id)
-    func studentJoin(request: Request) throws -> ResponseRepresentable {
-        let classroom = try request.parameters.next(Class.self)
-        //if let userID =
-                
-        return try render("Classes/join-in-class", ["classroom" : classroom], for: request, with: view)
+ 
+    //GET Join in class Teacher
+    func acceptUser(request: Request) throws -> ResponseRepresentable {
+        let classObj = try request.parameters.next(Class.self)
+        
+        let classUserObj = ClassUser(classID: classObj.id!, userID: request.user!.id!, status: "Joined")
+        try classUserObj.save()
+
+        return Response(redirect: "/classes/#(class.id)/join")
+        
     }
     
-    //GET Join in class Teacher
-//    func joinInClassTeacher(request: Request) throws -> ResponseRepresentable {
-//        let className = try request.parameters.next(Class.self)
-//        let user = try User.all()
-//        
-//        return try render("Classes/join-in-class", ["class": className,"users": user], for: request, with: view)
-//        
-//    }
-//    
-//    func acceptUser(request: Request) throws -> ResponseRepresentable {
-//        let userID = try request.parameters.next(Int.self)
-//        if let user = try Class.find(userID){
-//            let user = request.data["user"]?.string
-////            let classes = Class(name: "", events: "", users: user!)
-////            try classes.save()
-//        }
-//        return Response(redirect: "/classes/#(class.id)/join")
-//        
-//    }
-//    
+    func cancelUser(request: Request) throws -> ResponseRepresentable {
+        let classObj = try request.parameters.next(Class.self)
+        
+       // try classObj.dalete()
+        
+        return Response(redirect: "/classes")
+    }
+    
 //    func cancelUser(request: Request) throws -> ResponseRepresentable {
 //        let userID = try request.parameters.next(Int.self)
 //        if let user = try Class.find(userID){
