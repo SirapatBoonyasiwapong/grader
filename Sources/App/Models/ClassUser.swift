@@ -16,10 +16,6 @@ final class ClassUser: Model, NodeRepresentable {
         return parent(id: userID)
     }
     
-    var joinClasses: Children<ClassUser, JoinClass> {
-        return children()
-    }
-    
     let storage = Storage()
     
     init(row: Row) throws {

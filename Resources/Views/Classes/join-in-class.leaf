@@ -11,22 +11,21 @@
     <tr>
       <th class="align-left">Name</th>
       <th class="align-left">Username</th>
-      <th class="align-left">Role</th>
+      <th class="align-left"></th>
+      <th class="align-left"></th>
     </tr>
   </thead>
   <tbody>
 
-  #loop(users, "user"){
+  #loop(classUsers, "classUser"){
     <tr>
-      <td>#(user.name)</td>
-      <td>#(user.username)</td>
-      <td>#(user.role)</td>
-      <!--ถ้ากดยืนยัน ให้โชว์จอย ทำเหมือนแก้ไขผู้ใช้-->
-      <td><a href="/classes/#(class.id)/join" class="btn btn-primary">Accept</a></td>
-      <td><a href="/classes/#(class.id)/join" class="btn btn-danger">Cancel</a></td>
+      <td>#(classUser.user.name)</td>
+      <td>#(classUser.user.username)</td>
+      <td><a href="/classes/#(class.id)/accept/#(classUser.user.id)" class="btn btn-primary">Accept</a></td>
+      <td><a href="/classes/#(class.id)/delete/#(classUser.user.id)" class="btn btn-danger">Cancel</a></td>
     </tr>
     }
-    
+
   </tbody>
 </table>
 

@@ -45,39 +45,7 @@ public final class ClassesController {
             .filter("class_id", classObj.id!).first()
         
         return try render("Classes/join-class", ["class": classObj, "classUser": classUser], for: request, with: view)
-//        guard let user = request.user, className.isVisible(to: user) else {
-//            throw Abort.unauthorized
-//        }
-//
-//        var query = try JoinClass.makeQuery()
-//            .join(ClassUser.self, baseKey: "class_user_id", joinedKey: "id")
-//            .filter(ClassUser.self, "class_id", className.id).sort("status", .descending).limit(20)
-//        
-////        if user.role == .student {
-////            query = try query.filter(JoinClass.self, "user_id", request.user!.id)
-////        }
-//        
-//        let joinClasses = try query.all()
-//        
-//        var shouldRefreshPageAutomatically = false
-//        
-//        var joinedClasses: [Node] = []
-//        for joinClass in joinClasses {
-//            var joinedClass = try joinClass.makeNode(in: nil)
-//            let user = try joinClass.user.get()!
-//            let classroom = try joinClass.classUser.get()!.user.get()!
-//            joinedClass["className"] = classroom.name.makeNode(in: nil)
-//            joinedClass["userName"] = user.name.makeNode(in: nil)
-//            joinedClasses.append(joinedClass)
-//            
-//            if joinClass.joinClassStatus == .joined || joinClass.joinClassStatus == .waiting {
-//               shouldRefreshPageAutomatically = true
-//            }
-//        }
-//        return try render("Classes/join-class", ["className": className,
-//                                                 "joinedClasses": joinedClasses,
-//                                                 "shouldRefresh": shouldRefreshPageAutomatically
-//                                                ], for: request, with: view)
+
     }
     
     func joinClass(request: Request) throws -> ResponseRepresentable {

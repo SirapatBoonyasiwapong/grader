@@ -10,71 +10,35 @@ public final class JoinClassController {
     }
  
     //GET Join in class Teacher
+    func showUserInClass(request: Request) throws -> ResponseRepresentable {
+        
+        let classObj = try request.parameters.next(Class.self)
+        let classUsers = try ClassUser.makeQuery().filter("class_id", classObj.id!).all()
+        
+        return try render("Classes/join-in-class", ["class": classObj, "classUsers": classUsers], for: request, with: view)
+    }
+    
     func acceptUser(request: Request) throws -> ResponseRepresentable {
+        
         let classObj = try request.parameters.next(Class.self)
+        let user = try request.parameters.next(User.self)
         
-        let classUserObj = ClassUser(classID: classObj.id!, userID: request.user!.id!, status: "Joined")
-        try classUserObj.save()
-
-        return Response(redirect: "/classes/#(class.id)/join")
+        try ClassUser.makeQuery().filter("class_id", classObj.id!).filter("user_id", user.id!)
+        
+        return Response(redirect:"/classes/\(classObj.id!.string!)")
         
     }
     
-    func cancelUser(request: Request) throws -> ResponseRepresentable {
+    func deleteUser(request: Request) throws -> ResponseRepresentable {
+        
         let classObj = try request.parameters.next(Class.self)
+        let user = try request.parameters.next(User.self)
         
-       // try classObj.dalete()
+        try ClassUser.makeQuery().filter("class_id", classObj.id!).filter("user_id", user.id!).delete()
         
-        return Response(redirect: "/classes")
+        return Response(redirect: "/classes/\(classObj.id!.string!)")
     }
     
-//    func cancelUser(request: Request) throws -> ResponseRepresentable {
-//        let userID = try request.parameters.next(Int.self)
-//        if let user = try Class.find(userID){
-//            try user.delete()
-//        }
-//        
-//        return Response(redirect: "/classes/#(class.id)/join")
-//    }
-
-//    
-//    func form(request: Request) throws -> ResponseRepresentable {
-//        let classroom = try request.parameters.next(Class.self)
-//        let sequence = try request.parameters.next(Int.self)
-//        
-//        guard let user = request.user, classroom.isVisible(to: user) else {
-//            throw Abort.unauthorized
-//        }
-//        
-//        guard let classUser = try classroom.classUser.filter("sequence", sequence) else {
-//            throw Abort.notFound
-//        }
-//        
-//        return try render("Classes/",[ "classroom": classroom, "classUser": classUser, "user": user], for: request, with: view)
-//
-//    }
-   
-//    func submitStudent(request: Request) throws -> ResponseRepresentable {
-//        let classroom = try request.parameters.next(ClassUser.self)
-//        let sequence = try request.parameters.next(Int.self)
-//        
-//        guard let user = request.user, classroom.isVisible(to: user) else {
-//            throw Abort.unauthorized
-//        }
-//        
-//        guard let classUser = try classroom.classUser.filter("sequence", sequence).first() else {
-//            throw Abort.notFound
-//        }
-//        
-//        let joinClass = JoinClass(classUserID: classUser.id!, userID: user.id!)
-//        try joinClass.save()
-//        
-//        return try render("Classes/", [:], for: request, with: view)
-//        
-//        //ถ้ากดรับแล้ว ให้แสดงคำว่า joined
-//        //if accept 
-//    }
-    
-    }
+}
 
 
