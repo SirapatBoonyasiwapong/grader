@@ -48,6 +48,7 @@ public final class ClassesController {
 
     }
     
+    //GET Joine class status waiting
     func joinClass(request: Request) throws -> ResponseRepresentable {
         
         let classObj = try request.parameters.next(Class.self)

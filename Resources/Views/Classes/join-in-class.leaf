@@ -11,8 +11,7 @@
     <tr>
       <th class="align-left">Name</th>
       <th class="align-left">Username</th>
-      <th class="align-left"></th>
-      <th class="align-left"></th>
+      <th class="align-left">Status</th>
     </tr>
   </thead>
   <tbody>
@@ -21,8 +20,15 @@
     <tr>
       <td>#(classUser.user.name)</td>
       <td>#(classUser.user.username)</td>
-      <td><a href="/classes/#(class.id)/accept/#(classUser.user.id)" class="btn btn-primary">Accept</a></td>
-      <td><a href="/classes/#(class.id)/delete/#(classUser.user.id)" class="btn btn-danger">Cancel</a></td>
+      <td>
+      #equal(classUser.status, "Joined") {
+        <h4 style="color: green">Joined</h4>
+      }
+      ##else() {
+        <a href="/classes/#(class.id)/accept/#(classUser.user.id)" class="ink-button">Accept</a>
+        <a href="/classes/#(class.id)/delete/#(classUser.user.id)" class="ink-button">Cancel</a>
+      }
+      </td>
     </tr>
     }
 

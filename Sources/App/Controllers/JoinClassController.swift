@@ -18,17 +18,22 @@ public final class JoinClassController {
         return try render("Classes/join-in-class", ["class": classObj, "classUsers": classUsers], for: request, with: view)
     }
     
+    //GET Accept user
     func acceptUser(request: Request) throws -> ResponseRepresentable {
         
         let classObj = try request.parameters.next(Class.self)
         let user = try request.parameters.next(User.self)
         
-        try ClassUser.makeQuery().filter("class_id", classObj.id!).filter("user_id", user.id!)
+        if let classUser = try ClassUser.makeQuery().filter("class_id", classObj.id!).filter("user_id", user.id!).first() {
+            classUser.status = "Joined"
+            try classUser.save()
+        }
         
         return Response(redirect:"/classes/\(classObj.id!.string!)")
         
     }
     
+    //Get Delete user
     func deleteUser(request: Request) throws -> ResponseRepresentable {
         
         let classObj = try request.parameters.next(Class.self)
