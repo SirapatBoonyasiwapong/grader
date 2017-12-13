@@ -21,15 +21,16 @@ public final class ClassesController {
         
         return try render("Classes/class-new", [:], for: request, with: view)
 
-    }
+    } 
     
     //POST Create class
     func classForm(request: Request) throws -> ResponseRepresentable {
         guard let name = request.data["name"]?.string
+            
             else{
+                
                 throw Abort.badRequest
         }
-        
         let classes = Class(name: name, events: "", users: "", ownerID: request.user!.id!)
         try classes.save()
         

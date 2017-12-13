@@ -14,8 +14,7 @@
             <input type="text" class="form-control" id="name" name="name" />
         </div>
     </div>
-
-    <div class="control-group all-20">
+   <div class="control-group all-20">
       <label for="event">Event</label>
 
             <div class="pull-right button-group">

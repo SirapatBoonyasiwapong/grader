@@ -32,6 +32,9 @@ final class ProtectedRoutes: RouteCollection {
         builder.get("classes", Class.parameter, handler: classesController.showClass)
         builder.get("classes", Class.parameter, "join", handler: classesController.joinClass)
         
+        let joinClassController = JoinClassController(view)
+        builder.get("classes", Class.parameter, "ranking", handler: joinClassController.rankingClass)
+        
     }
 }
 

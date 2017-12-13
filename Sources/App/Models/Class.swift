@@ -8,6 +8,7 @@ final class Class: Model {
     var ownerID: Identifier
     
     let storage = Storage()
+    static let entity = "classes"
     
     init(row: Row) throws {
         name = try row.get("name")
@@ -66,5 +67,5 @@ extension Class: Preparation {
         return user.has(role: .teacher) || user.has(role: .admin)
     }
     
-
+    
 }

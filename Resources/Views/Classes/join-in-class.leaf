@@ -25,8 +25,8 @@
         <h4 style="color: green">Joined</h4>
       }
       ##else() {
-        <a href="/classes/#(class.id)/accept/#(classUser.user.id)" class="ink-button">Accept</a>
-        <a href="/classes/#(class.id)/delete/#(classUser.user.id)" class="ink-button">Cancel</a>
+        <a href="/classes/#(class.id)/accept/#(classUser.user.id)" class="ink-button blue">Accept</a>
+        <a href="/classes/#(class.id)/delete/#(classUser.user.id)" class="ink-button red">Cancel</a>
       }
       </td>
     </tr>

@@ -1,0 +1,35 @@
+#extend("Layouts/base")
+
+#export("title") { #(class.name) }
+
+#export("content") {
+
+<div class="control-group all-20">
+  <h2>#(class.name)</h2>
+</div>
+
+<table class="ink-table scores">
+  <thead>
+    <tr>
+      <th class="align-left">Position</th>
+      <th class="align-left">Name</th>
+      <th class="align-left">Problems attempted</th>
+      <th class="align-left">Number of submissions</th>
+      <th class="align-left">Total score</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    #loop(scores, "row") {
+        <tr>
+            <td>#add(index, "1")</td>
+            <td>#(row.name)</td>
+            <td>#(row.problems)</td>
+            <td>#(row.attempts)</td>
+            <td>#(row.score)</td>
+        </tr>
+    }
+  </tbody>
+</table>
+
+}

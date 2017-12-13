@@ -55,8 +55,7 @@ final class EventsController: ResourceRepresentable {
             throw Abort.badRequest
         }
         
-      //  let path = "/Users/student/Documents/Thesis-garder/grader/Public/icons/\(iconLanguage.name.string).png"
-      
+     
         // Extract
         // TBD: How do we handle invalid dates? (I think I'm just consuming them as nil)
         let formatter = DateFormatter()
