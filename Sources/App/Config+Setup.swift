@@ -32,6 +32,7 @@ extension Config {
         preparations.append(ResultCase.self)
         preparations.append(Class.self)
         preparations.append(ClassUser.self)
+ 
 
 
         
