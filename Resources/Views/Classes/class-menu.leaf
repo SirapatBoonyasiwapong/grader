@@ -1,0 +1,9 @@
+<nav class="ink-navigation">
+    <ul class="pagination pills grey">
+    #if(authenticatedUserHasTeacherRole) {
+        <li #contains(path,"users") { class="active" }><a href="/classes/#(class.id)/users">Users</a></li>
+    }
+        <li #contains(path,"events") { class="active" }><a href="/classes/#(class.id)/events">Events</a></li>
+        <li #contains(path,"ranking") { class="active" }><a href="/classes/#(class.id)/ranking">Ranking</a></li>
+    </ul>
+</nav>

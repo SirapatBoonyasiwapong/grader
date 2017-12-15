@@ -4,7 +4,7 @@
 
 #export("content") {
     <h2>Edit a Event</h2>
-    <form action="/events/#(editEvent.id)/edit" method="POST" enctype="multipart/form-data" class="ink-form">
+    <form action="/events/#(editEvent.id)/edit" method="POST" class="ink-form">
       <div class="control-group">
           <div class="column-group gutters">
               <div class="all-60">
@@ -15,24 +15,16 @@
                           <div class="all-100">
                               <label for="name">Event name</label>
                               <div class="control">
-                                  <input name="name" id="name" type="text" name="name" value="#(editEvent.name)" />
+                                  <input name="name" id="name" type="text" value="#(editEvent.name)" />
                               </div>
 
                               <label for="language_restriction">Programming Language</label>
                               <div class="control">
-                                  <select name="language_restriction" id="language_restriction" name="language_restriction" value="#(editEvent.languageRestriction)">
+                                  <select name="language_restriction" id="language_restriction" value="#(editEvent.languageRestriction)">
                                       <optgroup label="Available Languages">
                                           <option value="" selected>Any</option>
                                           <option value="java">Java</option>
                                           <option value="swift">Swift</option>
-                                      </optgroup>
-                                      <optgroup label="Coming Soon" disabled="disable">
-                                          <option value="c">C / C++</option>
-                                          <option value="c-sharp">C#</option>
-                                          <option value="kotlin">Kotlin</option>
-                                          <option value="php">PHP</option>
-                                          <option value="python">Python</option>
-                                          <option value="sql">SQL</option>
                                       </optgroup>
                                   </select>
                               </div>
@@ -73,6 +65,24 @@
                       </div>
                   </fieldset>
               </div>
+              <div class="all-60">
+                  <fieldset>
+                      <legend>Classes</legend>
+
+                      <div class="column-group gutters">
+                          <div class="all-100">
+                              <label for="classes">Class name</label>
+                              <div class="control">
+                                <select class="classes-select" name="classes[]" multiple="multiple">
+                                #loop(classes, "class") {
+                                  <option value="#(class.id)" #contains(selectedClassIDs, class.id) { selected="selected" }>#(class.name)</option>
+                                }
+                                </select>
+                              </div>
+                          </div>
+                      </div>
+                  </fieldset>
+              </div>
           </div>
 
           <div class="control">
@@ -83,4 +93,14 @@
 
     </form>
 
+}
+
+#export("head-after") {
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('.classes-select').select2();
+});
+</script>
 }

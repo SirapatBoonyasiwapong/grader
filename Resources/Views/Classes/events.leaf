@@ -10,20 +10,12 @@
         </div>
     }
 
-    <h2>Events</h2>
+    <h2>#(class.name)</h2>
 
-    <h3>Active this week</h3>
-
-    <ul>
-    #loop(activeEvents, "event") {
-        <li><a href="/events/#(event.id)">#(event.name)</a></li>
-    }
-    </ul>
-
-    <h3>Previous events</h3>
+    #embed("Classes/class-menu")
 
     <ul>
-    #loop(pastEvents, "event") {
+    #loop(events, "event") {
         <li><a href="/events/#(event.id)">#(event.name)</a></li>
     }
     </ul>

@@ -17,6 +17,7 @@ public final class JoinClassController {
         
         return try render("Classes/join-in-class", ["class": classObj, "classUsers": classUsers], for: request, with: view)
     }
+
     
     //GET Accept user
     func acceptUser(request: Request) throws -> ResponseRepresentable {

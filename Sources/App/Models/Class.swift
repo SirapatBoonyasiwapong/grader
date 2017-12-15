@@ -64,7 +64,8 @@ extension Class: Preparation {
     }
     
     func isVisible(to user: User) -> Bool {
-        return user.has(role: .teacher) || user.has(role: .admin)
+        let isMember = ((try? ClassUser.makeQuery().filter("user_id", user.id!).count()) ?? 0) > 0
+        return user.has(role: .admin) || user.id ==  ownerID || isMember
     }
     
     

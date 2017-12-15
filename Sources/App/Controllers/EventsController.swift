@@ -191,13 +191,16 @@ final class EventsController: ResourceRepresentable {
     func eventEditForm(request: Request) throws -> ResponseRepresentable {
         let event = try request.parameters.next(Event.self)
         
+        let classes = try Class.all()
+        let selectedClassIDs: [String] = try ClassEvent.makeQuery().filter("event_id", event.id!).all().map { $0.classID.string! }
+        
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "yyyy-MM-dd"
         let timeformatter = DateFormatter()
         timeformatter.dateFormat = "HH:mm"
         
         return try view.make("Events/event-edit", [
-            "editEvent": event,
+            "editEvent": event, "classes": classes, "selectedClassIDs": selectedClassIDs,
             "startsAtDate": event.startsAt == nil ? "" : dateformatter.string(from: event.startsAt!),
             "startsAtTime": event.startsAt == nil ? "" : timeformatter.string(from: event.startsAt!),
             "endsAtDate": event.endsAt == nil ? "" : dateformatter.string(from: event.endsAt!),
@@ -226,15 +229,22 @@ final class EventsController: ResourceRepresentable {
         // get the Post model and save to DB
         let event = try request.parameters.next(Event.self)
         
-            event.name = name
-
-            event.startsAt = startsAt
-            event.endsAt = endsAt
-            event.languageRestriction = languageRestriction
-
-    
-            try event.save()
-
+        event.name = name
+        event.startsAt = startsAt
+        event.endsAt = endsAt
+        event.languageRestriction = languageRestriction
+        try event.save()
+        
+        try ClassEvent.makeQuery().filter(ClassEvent.self, "event_id", event.id).delete()
+        
+        if let classIds = request.data["classes"]?.array {
+            for classId in classIds {
+                if let id = classId.string, let classObj = try Class.find(id) {
+                    let classEvent = ClassEvent(classID: classObj.id!, eventID: event.id!)
+                    try classEvent.save()
+                }
+            }
+        }
         
         return Response(redirect: "/events/#(event.eventId)/problems")
         

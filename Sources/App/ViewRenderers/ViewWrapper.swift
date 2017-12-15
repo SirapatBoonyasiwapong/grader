@@ -21,6 +21,7 @@ fileprivate func wrap(_ data: [String: NodeRepresentable], user: User) -> [Strin
 fileprivate func wrap(_ data: [String: NodeRepresentable], request: HTTP.Request) -> [String: NodeRepresentable] {
     var result = data
     let path: String = request.uri.path
-    result["path"] = path.components(separatedBy: "/").filter { $0 != "" }
+    let pathComponents: [String] = path.components(separatedBy: "/").filter { $0 != "" }
+    result["path"] = pathComponents
     return result
 }

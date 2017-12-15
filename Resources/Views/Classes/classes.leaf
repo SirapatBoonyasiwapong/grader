@@ -11,9 +11,10 @@
     }
 
     <h2>Classes</h2>
-    <ul>
+    <dl>
     #loop(classes, "class") {
-        <li><a href="/classes/#(class.id)">#(class.name)</a></li>
+        <dt><a href="/classes/#(class.id)/events">#(class.name)</a></dt>
+
     }
-    </ul>
+    </dl>
 }

@@ -14,13 +14,6 @@
             <input type="text" class="form-control" id="name" name="name" />
         </div>
     </div>
-   <div class="control-group all-20">
-      <label for="event">Event</label>
-
-            <div class="pull-right button-group">
-                <a href="/events/new" class="ink-button"><span class="fa fa-plus"></span> Add Event</a>
-            </div>
-    </div>
 
     <div class="control-group">
       <input type="submit" class="ink-button">
