@@ -5,7 +5,7 @@ import Flash
 
 final class LoginController {
     
-    let homepage = "/events"
+    let homepage = "/classes"
     
     let view: ViewRenderer
     
@@ -92,18 +92,31 @@ final class LoginController {
     }
     
     func changePassword(request: Request) throws -> ResponseRepresentable {
-        guard let password = request.data["newpassword"]?.string else {
-            throw Abort.badRequest
+        guard let oldPassword = request.data["oldpassword"]?.string, let newPassword = request.data["newpassword"]?.string,
+            let confirmPassword = request.data["confirmpassword"]?.string else {
+                throw Abort.badRequest
         }
         
-        let userID = request.user!.id
-        let user = try User.find(userID)!
-        user.setPassword(password)
-            
+        let user = request.user!
+        
+        guard let verifier = User.passwordVerifier, let oldHashedPassword = user.hashedPassword, let oldPasswordMatches = try? verifier.verify(password: oldPassword.makeBytes(), matches: oldHashedPassword.makeBytes()) else {
+            throw Abort.serverError
+        }
+        if !oldPasswordMatches {
+            return Response(redirect: "/changepassword").flash(.error, "Incorrect existing password")
+        }
+        
+        if !User.passwordMeetsRequirements(newPassword) {
+            return Response(redirect: "/changepassword").flash(.error, "Password does not meet requirements (4 or more characters)")
+        }
+        
+        if newPassword != confirmPassword {
+            return Response(redirect: "/changepassword").flash(.error, "New password does not match confirmed password")
+        }
+        user.setPassword(newPassword)
         try user.save()
         
-        return Response(redirect: "/login")
-        
+        return Response(redirect: "/profile")
     }
 }
     

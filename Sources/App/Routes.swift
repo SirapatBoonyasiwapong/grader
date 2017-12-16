@@ -14,7 +14,7 @@ final class Routes: RouteCollection {
     func build(_ builder: RouteBuilder) throws {
         /// GET /
         builder.get { req in
-            return Response(redirect: "/events")
+            return Response(redirect: "/classes")
         }
         
         let loginController = LoginController(view)

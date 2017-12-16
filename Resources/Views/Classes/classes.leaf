@@ -10,11 +10,41 @@
         </div>
     }
 
-    <h2>Classes</h2>
-    <dl>
-    #loop(classes, "class") {
-        <dt><a href="/classes/#(class.id)/events">#(class.name)</a></dt>
+    #if(authenticatedUser) {
+    <h2>My Classes</h2>
+    <div class="ink-grid">
+      <div class="column-group gutters">
+    #loop(myClasses, "class") {
+      <div class="all-25">
+      <figure class="ink-image bottom-space">
+        <img src="/uploads/#(class.id).jpg" style="height: 200px;">
+          <figcaption class="over-bottom">
+            <a href="/classes/#(class.id)/events">#(class.name)</a>
+            </figcaption>
+      </figure>
+      </div>
+      }
+    </div>
+    </div>
 
+    <h2>Other classes</h2>
+    } ##else() {
+    <h2>Classes</h2>
     }
-    </dl>
+
+    <div class="ink-grid">
+      <div class="column-group gutters">
+    #loop(classes, "class") {
+      <div class="all-25">
+      <figure class="ink-image bottom-space">
+        <img src="/uploads/#(class.id).jpg" style="height: 200px;">
+          <figcaption class="over-bottom">
+            <a href="/classes/#(class.id)/events">#(class.name)</a>
+            </figcaption>
+      </figure>
+      </div>
+      }
+    </div>
+    </div>
+
 }

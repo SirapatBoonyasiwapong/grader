@@ -55,7 +55,7 @@ extension Class: Preparation {
             builder.string("name")
             builder.string("events")
             builder.string("users")
-            
+            builder.int("ownerID")
         }
     }
     

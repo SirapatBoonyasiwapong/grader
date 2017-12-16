@@ -11,8 +11,26 @@ public final class ClassesController {
     
     //Show class
     func showClasses(request: Request) throws -> ResponseRepresentable {
-        let classes = try Class.all()
-        return try render("Classes/classes", ["classes": classes], for: request, with: view)
+        
+        if request.user != nil {
+            let myClasses: [Class]
+            let otherClasses: [Class]
+            if request.user!.role == .student {
+                myClasses = try Class.makeQuery().join(ClassUser.self, baseKey: "id", joinedKey: "class_id").filter(ClassUser.self, "user_id", request.user!.id!).all()
+                let myClassIDs = myClasses.map { $0.id! }
+                otherClasses = try Class.makeQuery().filter("id", notIn: myClassIDs).all()
+            }
+            else {
+                myClasses = try Class.makeQuery().filter("ownerID", request.user!.id!).all()
+                otherClasses = try Class.makeQuery().filter("ownerID", .notEquals, request.user!.id!).all()
+            }
+            return try render("Classes/classes", ["myClasses": myClasses, "classes": otherClasses], for: request, with: view)
+        }
+        else {
+            let classes = try Class.all()
+            return try render("Classes/classes", ["classes": classes], for: request, with: view)
+        }
+        
 
     }
     
@@ -25,14 +43,15 @@ public final class ClassesController {
     
     //POST Create class
     func classForm(request: Request) throws -> ResponseRepresentable {
-        guard let name = request.data["name"]?.string
-            
-            else{
-                
+        guard let name = request.data["name"]?.string,
+              let imageClass = request.formData?["image"] else{
                 throw Abort.badRequest
         }
         let classes = Class(name: name, events: "", users: "", ownerID: request.user!.id!)
         try classes.save()
+        
+        let path = "\(uploadPath)\(classes.id!.string!).jpg"
+        _ = save(bytes: imageClass.bytes!, path: path)
         
         return Response(redirect: "/")
     }

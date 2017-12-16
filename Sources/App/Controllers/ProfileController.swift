@@ -24,7 +24,7 @@ public final class ProfileController {
     func editForm(request: Request) throws -> ResponseRepresentable {
         
         let user = request.user!
-        return try view.make("edit-user", ["editUser": user])
+        return try render("edit-user", ["editUser": user], for: request, with: view)
     }
     
     func edit(request: Request) throws -> ResponseRepresentable {
