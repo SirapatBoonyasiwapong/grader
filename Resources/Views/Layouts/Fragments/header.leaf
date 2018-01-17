@@ -16,7 +16,6 @@
               <a>Admin</a>
               <ul class="submenu">
                 <li><a href="/users">User</a></li>
-                <li><a href="#">Problem</a></li>
               </ul>
               </li>
             }

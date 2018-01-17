@@ -36,6 +36,18 @@
       </div>
     </div>
 
+    <div class="control-group all-20">
+      <label for="role">Select role</label>
+        <div class="control">
+          <select name="role" id="role" value="#(user.role)">
+            <optgroup label="Role">
+                <option value="1" selected>Student</option>
+                <option value="2">Teacher</option>
+            </optgroup>
+          </select>
+        </div>
+    </div>
+
     <div class="control-group">
         <input type="submit" class="ink-button" value="Register"/>
     </div>

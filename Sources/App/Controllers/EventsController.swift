@@ -49,7 +49,6 @@ final class EventsController: ResourceRepresentable {
     func eventNewSubmit(request: Request) throws -> ResponseRepresentable {
         guard
             let userId = request.user?.id,
-          //  let iconLanguage = request.formData?["icon"],
             let name = request.data["name"]?.string
         else {
             throw Abort.badRequest
@@ -199,12 +198,12 @@ final class EventsController: ResourceRepresentable {
         let timeformatter = DateFormatter()
         timeformatter.dateFormat = "HH:mm"
         
-        return try view.make("Events/event-edit", [
+        return try render("Events/event-edit", [
             "editEvent": event, "classes": classes, "selectedClassIDs": selectedClassIDs,
             "startsAtDate": event.startsAt == nil ? "" : dateformatter.string(from: event.startsAt!),
             "startsAtTime": event.startsAt == nil ? "" : timeformatter.string(from: event.startsAt!),
             "endsAtDate": event.endsAt == nil ? "" : dateformatter.string(from: event.endsAt!),
-            "endsAtTime": event.endsAt == nil ? "" : timeformatter.string(from: event.endsAt!)])
+            "endsAtTime": event.endsAt == nil ? "" : timeformatter.string(from: event.endsAt!)], for: request, with: view)
     }
     
     //POST Edit event

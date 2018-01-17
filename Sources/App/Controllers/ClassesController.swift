@@ -17,8 +17,13 @@ public final class ClassesController {
             let otherClasses: [Class]
             if request.user!.role == .student {
                 myClasses = try Class.makeQuery().join(ClassUser.self, baseKey: "id", joinedKey: "class_id").filter(ClassUser.self, "user_id", request.user!.id!).all()
-                let myClassIDs = myClasses.map { $0.id! }
-                otherClasses = try Class.makeQuery().filter("id", notIn: myClassIDs).all()
+                if myClasses.count == 0 {
+                    otherClasses = try Class.all()
+                }
+                else {
+                    let myClassIDs = myClasses.map { $0.id! }
+                    otherClasses = try Class.makeQuery().filter("id", notIn: myClassIDs).all()
+                }
             }
             else {
                 myClasses = try Class.makeQuery().filter("ownerID", request.user!.id!).all()
@@ -30,7 +35,6 @@ public final class ClassesController {
             let classes = try Class.all()
             return try render("Classes/classes", ["classes": classes], for: request, with: view)
         }
-        
 
     }
     
@@ -47,7 +51,7 @@ public final class ClassesController {
               let imageClass = request.formData?["image"] else{
                 throw Abort.badRequest
         }
-        let classes = Class(name: name, events: "", users: "", ownerID: request.user!.id!)
+        let classes = Class(name: name, ownerID: request.user!.id!)
         try classes.save()
         
         let path = "\(uploadPath)\(classes.id!.string!).jpg"
@@ -77,16 +81,23 @@ public final class ClassesController {
         return try render("Classes/join-class", ["class": classObj, "classUser": classUser], for: request, with: view)
     }
     
-    //GET Join class status waiting
+    //GET Join class when student don't join class (OtherClasses)
     func joinClass(request: Request) throws -> ResponseRepresentable {
+    
+        //let classObj = try request.parameters.next(Class.self)
+        //print(classObj.id!.string!)
         
-        let classObj = try request.parameters.next(Class.self)
+        print("there")
         
-        let classUserObj = ClassUser(classID: classObj.id!, userID: request.user!.id!, status: "Waiting")
-        try classUserObj.save()
+        try User.database!.raw("INSERT INTO class_users (class_id, user_id, status) VALUES (?, ?, ?)", [4 ,request.user!.id!, "Waiting"])
         
-        return Response(redirect: "/classes/\(classObj.id!.string!)")
+//        let classUserObj = ClassUser(classID: classObj.id!, userID: request.user!.id!, status: "Waiting")
+//        try classUserObj.save()
         
+        print("here")
+       
+        return Response(redirect: "/classes/4") //\(classObj.id!.string!)")
+
     }
     
     //GET Show all the events for a class

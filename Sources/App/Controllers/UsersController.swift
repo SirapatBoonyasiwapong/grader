@@ -54,7 +54,7 @@ public final class UsersController {
     func deleteForm(request: Request) throws -> ResponseRepresentable {
         let userID = try request.parameters.next(Int.self)
         let user = try User.find(userID)
-        return try view.make("delete-user", ["deleteUser": user])
+        return try render("delete-user", ["deleteUser": user], for: request, with: view)
     }
     
     func delete(request: Request) throws -> ResponseRepresentable {

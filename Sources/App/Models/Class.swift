@@ -3,8 +3,6 @@ import FluentProvider
 
 final class Class: Model {
     var name: String
-    var events: String
-    var users: String
     var ownerID: Identifier
     
     let storage = Storage()
@@ -12,16 +10,12 @@ final class Class: Model {
     
     init(row: Row) throws {
         name = try row.get("name")
-        events = try row.get("events")
-        users = try row.get("users")
         ownerID = try row.get("ownerID")
         
     }
     
-    init(name: String, events: String, users: String, ownerID: Identifier) {
+    init(name: String, ownerID: Identifier) {
         self.name = name
-        self.events = events
-        self.users = users
         self.ownerID = ownerID
         
     }
@@ -29,8 +23,6 @@ final class Class: Model {
     func makeRow() throws -> Row {
         var row = Row()
         try row.set("name", name)
-        try row.set("events", events)
-        try row.set("users", users)
         
         return row
     }
@@ -42,8 +34,7 @@ extension Class: NodeRepresentable {
         var node = Node(context)
         try node.set("id", id?.string ?? "")
         try node.set("name", name)
-        try node.set("events", events)
-        try node.set("users", users)
+
         return node
     }
 }
@@ -53,8 +44,6 @@ extension Class: Preparation {
         try database.create(self) { builder in
             builder.id()
             builder.string("name")
-            builder.string("events")
-            builder.string("users")
             builder.int("ownerID")
         }
     }

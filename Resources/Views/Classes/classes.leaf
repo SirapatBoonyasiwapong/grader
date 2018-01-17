@@ -39,7 +39,7 @@
       <figure class="ink-image bottom-space">
         <img src="/uploads/#(class.id).jpg" style="height: 200px;">
           <figcaption class="over-bottom">
-            <a href="/classes/#(class.id)/events">#(class.name)</a>
+            <a href="/classes/#(class.id)/join">#(class.name)</a>
             </figcaption>
       </figure>
       </div>

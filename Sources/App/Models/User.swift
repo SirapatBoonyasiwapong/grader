@@ -70,6 +70,7 @@ extension User: NodeRepresentable {
 extension User: PasswordAuthenticatable {
     public static let usernameKey = "username"
     public static let passwordVerifier: PasswordVerifier? = User.passwordHasher
+   // public static let passwordMeetsRequirements = User. setPassword
     public var hashedPassword: String? {
         return password
     }
