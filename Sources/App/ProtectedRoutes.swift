@@ -29,7 +29,6 @@ final class ProtectedRoutes: RouteCollection {
         builder.post("changepassword", handler: loginController.changePassword)
         
         let classesController = ClassesController(view)
-
         builder.get("classes", Class.parameter, "events", handler: classesController.showClassEvents)
         builder.get("classes", Class.parameter, "join", handler: classesController.joinClass)
         builder.get("classes", Class.parameter, "ranking", handler: classesController.showClassRanking)

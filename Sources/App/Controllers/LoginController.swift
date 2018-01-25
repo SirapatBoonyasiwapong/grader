@@ -58,24 +58,21 @@ final class LoginController {
     func register(_ request: Request) throws -> ResponseRepresentable {
         guard let email = request.data["email"]?.string,
             let password = request.data["password"]?.string,
-     
             let name = request.data["name"]?.string else {
-                
                 throw Abort.badRequest
         }
         
-       // let role = request.data["role"]?.int.flatMap { raw in Role(rawValue: raw) }
+        let role = request.data["role"]?.string.flatMap {
+            raw in Int(raw).flatMap({ Role(rawValue: $0) })
+        } ?? .student
         
-        let user = User(name: name, username: email, password: password, role: .student)
-       // let user = User(name: name, username: email, password: password, role: role!)
+        let user = User(name: name, username: email, password: password, role: role)
         try user.save()
-        
         
         if let imageUser = request.formData?["image"] {
             let path = "\(uploadPath)\(user.id!.string!).jpg"
             _ = save(bytes: imageUser.bytes!, path: path)
         }
-        
         
         let credentials = Password(username: email, password: password)
         do {
@@ -83,7 +80,6 @@ final class LoginController {
             try request.auth.authenticate(user, persist: true)
             return Response(redirect: homepage)
         } catch {
-            
             return Response(redirect: "/register").flash(.error, "Something bad happened.")
         }
     }
@@ -113,9 +109,9 @@ final class LoginController {
             return Response(redirect: "/changepassword").flash(.error, "Incorrect existing password")
         }
         
-//        if !User.passwordMeetsRequirements(newPassword) {
-//            return Response(redirect: "/changepassword").flash(.error, "Password does not meet requirements (4 or more characters)")
-//        }
+        if !User.passwordMeetsRequirements(newPassword) {
+            return Response(redirect: "/changepassword").flash(.error, "Password does not meet requirements (4 or more characters)")
+        }
     
         if newPassword != confirmPassword {
             return Response(redirect: "/changepassword").flash(.error, "New password does not match confirmed password")
