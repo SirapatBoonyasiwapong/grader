@@ -34,7 +34,7 @@ public final class UsersController {
         
         // get the Post model and save to DB
         let userID = try request.parameters.next(Int.self)
-        if let user = try User.find(userID){
+        if let user = try User.find(userID) {
             user.name = name
             user.username = username
             if password != "" {
@@ -44,8 +44,7 @@ public final class UsersController {
             
             let path = "\(uploadPath)\(user.id!.string!).jpg"
             _ = save(bytes: imageUser.bytes!, path: path)
-        }
-        
+        }        
         return Response(redirect: "/users")
         
     }
@@ -60,10 +59,9 @@ public final class UsersController {
     func delete(request: Request) throws -> ResponseRepresentable {
         
         let userID = try request.parameters.next(Int.self)
-        if let user = try User.find(userID){
+        if let user = try User.find(userID) {
             try user.delete()
         }
-        
         return Response(redirect: "/users")
     }
     

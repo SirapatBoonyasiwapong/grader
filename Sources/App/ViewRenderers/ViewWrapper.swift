@@ -15,6 +15,7 @@ fileprivate func wrap(_ data: [String: NodeRepresentable], user: User) -> [Strin
     result["authenticatedUser"] = user
     result["authenticatedUserHasTeacherRole"] = user.has(role: .teacher)
     result["acceptUserHasTeacherRole"] = user.has(role: .teacher)
+    result["authenticatedUserHasAdminRole"] = user.has(role: .admin)
     return result
 }
 

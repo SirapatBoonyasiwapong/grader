@@ -1,0 +1,29 @@
+#extend("Layouts/base")
+
+#export("title") { Teachers }
+
+#export("content") {
+  <h2>Teachers</h2>
+
+<table class="ink-table">
+  <thead>
+    <tr>
+      <th class="align-left">Name</th>
+      <th class="align-left">Username</th>
+      <th class="align-left"></th>
+    </tr>
+  </thead>
+  <tbody>
+
+  #loop(users, "user"){
+    <tr>
+      <td>#(user.name)</td>
+      <td>#(user.username)</td>
+      <td><a href="/users/teacher/#(user.id)/delete" class="btn btn-danger">Delete</a></td>
+    </tr>
+
+    }
+  </tbody>
+  </table>
+
+}

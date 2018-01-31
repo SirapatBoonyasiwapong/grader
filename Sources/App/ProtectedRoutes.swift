@@ -36,6 +36,14 @@ final class ProtectedRoutes: RouteCollection {
         let joinClassController = JoinClassController(view)
         builder.get("classes", Class.parameter, Event.parameter, "ranking", handler: joinClassController.rankingClass)
         
+        let adminController = AdminController(view)
+        builder.get("users", "student", handler: adminController.showStudent)
+        builder.get("users", "student", User.parameter, "delete", handler: adminController.deleteStudent)
+        builder.get("users", "teacher", handler: adminController.showTeacher)
+        builder.get("users", "teacher", User.parameter, "delete", handler: adminController.deleteTeacher)
+        
+        
+        
     }
 }
 
