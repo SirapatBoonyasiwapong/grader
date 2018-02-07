@@ -30,9 +30,9 @@ extension Config {
         preparations.append(EventProblem.self)
         preparations.append(Submission.self)
         preparations.append(ResultCase.self)
-        preparations.append(Class.self)
-        preparations.append(ClassUser.self)
-        preparations.append(ClassEvent.self)
+        preparations.append(Group.self)
+        preparations.append(GroupUser.self)
+        preparations.append(GroupEvent.self)
 
 
         

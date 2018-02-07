@@ -49,7 +49,8 @@ final class EventsController: ResourceRepresentable {
     func eventNewSubmit(request: Request) throws -> ResponseRepresentable {
         guard
             let userId = request.user?.id,
-            let name = request.data["name"]?.string
+            let name = request.data["name"]?.string,
+            let imageEvent = request.formData?["image"]
         else {
             throw Abort.badRequest
         }
@@ -80,6 +81,10 @@ final class EventsController: ResourceRepresentable {
             languageRestriction: languageRestriction
         )
         try event.save()
+        
+        let path = "\(uploadPath)\(event.id!.string!).jpg"
+        _ = save(bytes: imageEvent.bytes!, path: path)
+        
         return Response(redirect: "/events/\(event.id!.string!)/problems/new")
     }
     
@@ -190,8 +195,8 @@ final class EventsController: ResourceRepresentable {
     func eventEditForm(request: Request) throws -> ResponseRepresentable {
         let event = try request.parameters.next(Event.self)
         
-        let classes = try Class.all()
-        let selectedClassIDs: [String] = try ClassEvent.makeQuery().filter("event_id", event.id!).all().map { $0.classID.string! }
+        let classes = try Group.all()
+        let selectedClassIDs: [String] = try GroupEvent.makeQuery().filter("event_id", event.id!).all().map { $0.groupID.string! }
         
         let dateformatter = DateFormatter()
         dateformatter.dateFormat = "yyyy-MM-dd"
@@ -234,19 +239,17 @@ final class EventsController: ResourceRepresentable {
         event.languageRestriction = languageRestriction
         try event.save()
         
-        try ClassEvent.makeQuery().filter(ClassEvent.self, "event_id", event.id).delete()
+        try GroupEvent.makeQuery().filter(GroupEvent.self, "event_id", event.id).delete()
         
         if let classIds = request.data["classes"]?.array {
             for classId in classIds {
-                if let id = classId.string, let classObj = try Class.find(id) {
-                    let classEvent = ClassEvent(classID: classObj.id!, eventID: event.id!)
+                if let id = classId.string, let classObj = try Group.find(id) {
+                    let classEvent = GroupEvent(groupID: classObj.id!, eventID: event.id!)
                     try classEvent.save()
                 }
             }
-        }
-        
+        }        
         return Response(redirect: "/events/#(event.eventId)/problems")
-        
     }    
     
 }

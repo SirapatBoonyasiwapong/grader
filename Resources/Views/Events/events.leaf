@@ -14,18 +14,37 @@
 
     <h3>Active this week</h3>
 
-    <ul>
-    #loop(activeEvents, "event") {
-        <li><a href="/events/#(event.id)">#(event.name)</a></li>
+    <div class="ink-grid">
+      <div class="column-group gutters">
+      #loop(activeEvents, "event") {
+      <div class="all-25">
+        <figure class="ink-image bottom-space">
+          <img src="/uploads/#(event.id).jpg" style="height: 200px;">
+            <figcaption class="over-bottom">
+              <a href="/events/#(event.id)">#(event.name)</a>
+            </figcaption>
+        </figure>
+        </div>
     }
-    </ul>
+    </div>
+    </div>
 
     <h3>Previous events</h3>
 
-    <ul>
-    #loop(pastEvents, "event") {
-        <li><a href="/events/#(event.id)">#(event.name)</a></li>
+    <div class="ink-grid">
+      <div class="column-group gutters">
+      #loop(pastEvents, "event") {
+      <div class="all-25">
+        <figure class="ink-image bottom-space">
+          <img src="/uploads/#(event.id).jpg" style="height: 200px;">
+            <figcaption class="over-bottom">
+              <a href="/events/#(event.id)">#(event.name)</a>
+            </figcaption>
+        </figure>
+        </div>
+
     }
-    </ul>
+    </div>
+    </div>
 
 }

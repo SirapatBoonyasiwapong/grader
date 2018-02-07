@@ -46,8 +46,8 @@ final class TeacherRoutes: RouteCollection {
         builder.get("classes", "create", handler: classesController.createClassForm)
         builder.post("classes", "create", handler: classesController.classForm)
         
-        builder.get("classes", Class.parameter, "users", handler: joinClassController.showUserInClass)
-        builder.get("classes", Class.parameter, "delete", User.parameter, handler: joinClassController.deleteUser)
-        builder.get("classes", Class.parameter, "accept", User.parameter, handler: joinClassController.acceptUser)
+        builder.get("classes", Group.parameter, "users", handler: joinClassController.showUserInClass)
+        builder.get("classes", Group.parameter, "delete", User.parameter, handler: joinClassController.deleteUser)
+        builder.get("classes", Group.parameter, "accept", User.parameter, handler: joinClassController.acceptUser)
     }
 }

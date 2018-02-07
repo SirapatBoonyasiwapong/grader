@@ -84,11 +84,20 @@
               </div>
           </div>
 
+          <div class="all-40">
+            <fieldset>
+              <legend>Image</legend>
+              <div class="column-group gutters">
+                <div class="all-50">
+                  <input type="file" class="form-control" name="image">
+                </div>
+            </fieldset>
+          </div>
+
           <div class="control">
               <input type="submit" class="ink-button">
           </div>
       </div>
-
 
     </form>
 

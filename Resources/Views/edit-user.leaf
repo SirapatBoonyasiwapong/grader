@@ -30,8 +30,7 @@
     </div>
 
     <div class="control-group">
-        <a href="/changepassword" class="ink-button blue">Change password</a>
-        <input type="submit" class="ink-button blue" value="Submit"/>
+        <input type="submit" class="ink-button " value="Submit"/>
     </div>
 
 </form>

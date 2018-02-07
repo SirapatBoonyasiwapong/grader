@@ -1,35 +1,34 @@
 import Foundation
 import FluentProvider
 
-final class ClassEvent: Model, NodeRepresentable {
+final class GroupEvent: Model, NodeRepresentable {
     
-    var classID: Identifier
+    var groupID: Identifier
     var eventID: Identifier
     
-    
-    var classroom: Parent<ClassEvent, Class> {
-        return parent(id: classID)
+    var classroom: Parent<GroupEvent, Group> {
+        return parent(id: groupID)
     }
     
-    var events: Parent<ClassEvent, Event> {
+    var events: Parent<GroupEvent, Event> {
         return parent(id: eventID)
     }
     
     let storage = Storage()
     
     init(row: Row) throws {
-        classID = try row.get("class_id")
+        groupID = try row.get("group_id")
         eventID = try row.get("event_id")
     }
     
-    init(classID: Identifier, eventID: Identifier) {
-        self.classID = classID
+    init(groupID: Identifier, eventID: Identifier) {
+        self.groupID = groupID
         self.eventID = eventID
     }
     
     func makeRow() throws -> Row {
         var row = Row()
-        try row.set("class_id", classID)
+        try row.set("group_id", groupID)
         try row.set("event_id", eventID)
         
         return row
@@ -39,17 +38,17 @@ final class ClassEvent: Model, NodeRepresentable {
         let events = try self.events.get()
         return try Node(node: [
             "id": id!.string!,
-            "classID": classID,
+            "groupID": groupID,
             "eventID": eventID,
             "events": events.makeNode(in: context)])
     }
 }
 
-extension ClassEvent: Preparation {
+extension GroupEvent: Preparation {
     static func prepare(_ database: Database) throws {
         try database.create(self) { builder in
             builder.id()
-            builder.parent(Class.self, optional: false)
+            builder.parent(Group.self, optional: false)
             builder.parent(Event.self, optional: false)
         }
     }

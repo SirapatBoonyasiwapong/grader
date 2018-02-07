@@ -13,26 +13,26 @@ public final class ClassesController {
     func showClasses(request: Request) throws -> ResponseRepresentable {
         
         if request.user != nil {
-            let myClasses: [Class]
-            let otherClasses: [Class]
+            let myClasses: [Group]
+            let otherClasses: [Group]
             if request.user!.role == .student {
-                myClasses = try Class.makeQuery().join(ClassUser.self, baseKey: "id", joinedKey: "class_id").filter(ClassUser.self, "user_id", request.user!.id!).all()
+                myClasses = try Group.makeQuery().join(GroupUser.self, baseKey: "id", joinedKey: "group_id").filter(GroupUser.self, "user_id", request.user!.id!).all()
                 if myClasses.count == 0 {
-                    otherClasses = try Class.all()
+                    otherClasses = try Group.all()
                 }
                 else {
                     let myClassIDs = myClasses.map { $0.id! }
-                    otherClasses = try Class.makeQuery().filter("id", notIn: myClassIDs).all()
+                    otherClasses = try Group.makeQuery().filter("id", notIn: myClassIDs).all()
                 }
             }
             else {
-                myClasses = try Class.makeQuery().filter("ownerID", request.user!.id!).all()
-                otherClasses = try Class.makeQuery().filter("ownerID", .notEquals, request.user!.id!).all()
+                myClasses = try Group.makeQuery().filter("ownerID", request.user!.id!).all()
+                otherClasses = try Group.makeQuery().filter("ownerID", .notEquals, request.user!.id!).all()
             }
             return try render("Classes/classes", ["myClasses": myClasses, "classes": otherClasses], for: request, with: view)
         }
         else {
-            let classes = try Class.all()
+            let classes = try Group.all()
             return try render("Classes/classes", ["classes": classes], for: request, with: view)
         }
 
@@ -51,7 +51,7 @@ public final class ClassesController {
               let imageClass = request.formData?["image"] else{
                 throw Abort.badRequest
         }
-        let classes = Class(name: name, ownerID: request.user!.id!)
+        let classes = Group(name: name, ownerID: request.user!.id!)
         try classes.save()
         
         let path = "\(uploadPath)\(classes.id!.string!).jpg"
@@ -63,9 +63,9 @@ public final class ClassesController {
     //GET Show all the events for a class
     func showClassEvents(request: Request) throws -> ResponseRepresentable {
         
-        let classObj = try request.parameters.next(Class.self)
+        let classObj = try request.parameters.next(Group.self)
         
-        let events = try Event.makeQuery().join(ClassEvent.self, baseKey: "id", joinedKey: "event_id").filter(ClassEvent.self, "class_id", classObj.id!).all()
+        let events = try Event.makeQuery().join(GroupEvent.self, baseKey: "id", joinedKey: "event_id").filter(GroupEvent.self, "group_id", classObj.id!).all()
         
         return try render("Classes/events", ["class": classObj, "events": events], for: request, with: view)
     }
@@ -73,43 +73,43 @@ public final class ClassesController {
     //GET Show all the students in the class
     func showClassUsers(request: Request) throws -> ResponseRepresentable {
 
-        let classObj = try request.parameters.next(Class.self)
+        let classObj = try request.parameters.next(Group.self)
         
-        let classUser = try ClassUser.makeQuery().filter("user_id", request.user!.id!)
-            .filter("class_id", classObj.id!).first()
+        let classUser = try GroupUser.makeQuery().filter("user_id", request.user!.id!)
+            .filter("group_id", classObj.id!).first()
         
         return try render("Classes/join-class", ["class": classObj, "classUser": classUser], for: request, with: view)
     }
     
-    //GET Join class when student don't join class (OtherClasses)
-    func joinClass(request: Request) throws -> ResponseRepresentable {
+    //GET OtherClass
+    func joinClassForm(request: Request) throws -> ResponseRepresentable {
+        
+        let classObj = try request.parameters.next(Group.self)
+        return try render("Classes/join-class", ["class": classObj], for: request, with: view)
+    }
     
-        //let classObj = try request.parameters.next(Class.self)
-        //print(classObj.id!.string!)
+    //POST Join class when student don't join class (OtherClasses)
+    func joinClass(request: Request) throws -> ResponseRepresentable {
         
-        print("there")
+        let classObj = try request.parameters.next(Group.self)
+
+        let classUserObj = GroupUser(groupID: classObj.id!, userID: request.user!.id!, status: "Waiting")
+        try classUserObj.save()
         
-        try User.database!.raw("INSERT INTO class_users (class_id, user_id, status) VALUES (?, ?, ?)", [4 ,request.user!.id!, "Waiting"])
-        
-//        let classUserObj = ClassUser(classID: classObj.id!, userID: request.user!.id!, status: "Waiting")
-//        try classUserObj.save()
-        
-        print("here")
-       
-        return Response(redirect: "/classes/4") //\(classObj.id!.string!)")
+        return Response(redirect: "/classes/\(classObj.id!.string!)/join")
 
     }
     
     //GET Show all the events for a class
     func showClassRanking(request: Request) throws -> ResponseRepresentable {
         
-        let classObj = try request.parameters.next(Class.self)
+        let classObj = try request.parameters.next(Group.self)
         
         guard let user = request.user, classObj.isVisible(to: user) else {
             throw Abort.unauthorized
         }
         
-        let scores = try User.database!.raw("SELECT x.user_id, u.name, SUM(x.score) score, SUM(x.attempts) attempts, COUNT(1) problems FROM users u JOIN (SELECT s.user_id, s.event_problem_id, MAX(s.score) score, COUNT(1) attempts FROM submissions s JOIN class_users cu ON cu.user_id = s.user_id JOIN classes c ON cu.class_id = c.id JOIN event_problems ep ON s.event_problem_id = ep.id JOIN events e ON ep.event_id = e.id WHERE cu.class_id = ? AND (s.created_at > e.starts_at OR e.starts_at is null) AND (s.created_at < e.ends_at OR e.ends_at is null) AND (s.language = e.language_restriction OR e.language_restriction is null) GROUP BY s.user_id, event_problem_id) x ON u.id = x.user_id WHERE u.role = 1 GROUP BY x.user_id, u.name ORDER BY score DESC, attempts ASC, problems DESC", [classObj.id!])
+        let scores = try User.database!.raw("SELECT x.user_id, u.name, SUM(x.score) score, SUM(x.attempts) attempts, COUNT(1) problems FROM users u JOIN (SELECT s.user_id, s.event_problem_id, MAX(s.score) score, COUNT(1) attempts FROM submissions s JOIN group_users cu ON cu.user_id = s.user_id JOIN groups c ON cu.group_id = c.id JOIN event_problems ep ON s.event_problem_id = ep.id JOIN events e ON ep.event_id = e.id WHERE cu.group_id = ? AND (s.created_at > e.starts_at OR e.starts_at is null) AND (s.created_at < e.ends_at OR e.ends_at is null) AND (s.language = e.language_restriction OR e.language_restriction is null) GROUP BY s.user_id, event_problem_id) x ON u.id = x.user_id WHERE u.role = 1 GROUP BY x.user_id, u.name ORDER BY score DESC, attempts ASC, problems DESC", [classObj.id!])
         
         return try render("Classes/class-ranking", ["class": classObj, "scores": scores], for: request, with: view)
     }

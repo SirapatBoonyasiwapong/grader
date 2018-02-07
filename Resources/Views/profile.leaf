@@ -10,6 +10,6 @@
   <h5>Name : #(user.name)</h5>
   <p>Student ID : #(user.username)</p>
 
-  <a href="/changepassword" class="ink-button blue">Change password</a>
-  <a href="/edit" class="ink-button blue">Edit Profile</a>
+  <a href="/changepassword" class="ink-button">Change password</a>
+  <a href="/edit" class="ink-button">Edit Profile</a>
 }

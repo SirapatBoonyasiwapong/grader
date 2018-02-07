@@ -1,32 +1,31 @@
 import Foundation
 import FluentProvider
 
-final class ClassUser: Model, NodeRepresentable {
+final class GroupUser: Model, NodeRepresentable {
     
-    var classID: Identifier
+    var groupID: Identifier
     var userID: Identifier
     var status: String
-
-    
-    var classroom: Parent<ClassUser, Class> {
-        return parent(id: classID)
+ 
+    var classes: Parent<GroupUser, Group> {
+        return parent(id: groupID)
     }
     
-    var user: Parent<ClassUser, User> {
+    var user: Parent<GroupUser, User> {
         return parent(id: userID)
     }
     
     let storage = Storage()
     
     init(row: Row) throws {
-        classID = try row.get("class_id")
+        groupID = try row.get("group_id")
         userID = try row.get("user_id")
         status = try row.get("status")
 
     }
     
-    init(classID: Identifier, userID: Identifier, status: String) {
-        self.classID = classID
+    init(groupID: Identifier, userID: Identifier, status: String) {
+        self.groupID = groupID
         self.userID = userID
         self.status = status
      
@@ -34,7 +33,7 @@ final class ClassUser: Model, NodeRepresentable {
     
     func makeRow() throws -> Row {
         var row = Row()
-        try row.set("class_id", classID)
+        try row.set("group_id", groupID)
         try row.set("user_id", userID)
         try row.set("status", status)
 
@@ -45,7 +44,7 @@ final class ClassUser: Model, NodeRepresentable {
         let user = try self.user.get()
         return try Node(node: [
             "id": id!.string!,
-            "classID": classID,
+            "groupID": groupID,
             "userID": userID,
             "status": status,
             "user": user.makeNode(in: context)])
@@ -53,11 +52,11 @@ final class ClassUser: Model, NodeRepresentable {
 }
 
 
-extension ClassUser: Preparation {
+extension GroupUser: Preparation {
     static func prepare(_ database: Database) throws {
         try database.create(self) { builder in
             builder.id()
-            builder.parent(Class.self, optional: false)
+            builder.parent(Group.self, optional: false)
             builder.parent(User.self, optional: false)
             builder.string("status")
             

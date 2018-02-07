@@ -29,19 +29,19 @@ final class ProtectedRoutes: RouteCollection {
         builder.post("changepassword", handler: loginController.changePassword)
         
         let classesController = ClassesController(view)
-        builder.get("classes", Class.parameter, "events", handler: classesController.showClassEvents)
-        builder.get("classes", Class.parameter, "join", handler: classesController.joinClass)
-        builder.get("classes", Class.parameter, "ranking", handler: classesController.showClassRanking)
+        builder.get("classes", Group.parameter, "events", handler: classesController.showClassEvents)
+        builder.get("classes", Group.parameter, "join", handler: classesController.joinClassForm)
+        builder.post("classes", Group.parameter, "join", handler: classesController.joinClass)
+        builder.get("classes", Group.parameter, "ranking", handler: classesController.showClassRanking)
         
         let joinClassController = JoinClassController(view)
-        builder.get("classes", Class.parameter, Event.parameter, "ranking", handler: joinClassController.rankingClass)
+        builder.get("classes", Group.parameter, Event.parameter, "ranking", handler: joinClassController.rankingClass)
         
         let adminController = AdminController(view)
         builder.get("users", "student", handler: adminController.showStudent)
         builder.get("users", "student", User.parameter, "delete", handler: adminController.deleteStudent)
         builder.get("users", "teacher", handler: adminController.showTeacher)
-        builder.get("users", "teacher", User.parameter, "delete", handler: adminController.deleteTeacher)
-        
+        builder.get("users", "teacher", User.parameter, "delete", handler: adminController.deleteTeacher)   
         
         
     }
