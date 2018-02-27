@@ -14,7 +14,6 @@ public final class ProfileController {
         try request.auth.unauthenticate()
         return Response(redirect: "/").flash(.error, "User is logged out")
     }
-
         
     func profile(request: Request) throws -> ResponseRepresentable {
         let user = request.user!
@@ -30,20 +29,15 @@ public final class ProfileController {
     func edit(request: Request) throws -> ResponseRepresentable {
         guard let name =  request.data["name"]?.string,
             let username =  request.data["username"]?.string,
-            let imageUser = request.formData?["image"],
-            let password =  request.data["password"]?.string else {
+            let imageUser = request.formData?["image"] else {
                 throw Abort.badRequest
                 
         }
-        
         // get the Post model and save to DB
-
         let user = request.user!
         user.name = name
         user.username = username
-        if password != "" {
-            user.setPassword(password)
-        }
+      
         try user.save()
         
         let path = "\(uploadPath)\(user.id!.string!).jpg"

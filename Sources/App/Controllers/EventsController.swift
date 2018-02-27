@@ -12,8 +12,9 @@ final class EventsController: ResourceRepresentable {
     
     /// GET /events
     func index(_ req: Request) throws -> ResponseRepresentable {
-        let activeEvents = try Event.makeQuery().filter(raw: "(starts_at is null OR starts_at < CURRENT_TIMESTAMP) AND (ends_at is null OR ends_at > CURRENT_TIMESTAMP)").all()
-        let pastEvents = try Event.makeQuery().filter(raw: "ends_at < CURRENT_TIMESTAMP").all()
+        
+        let activeEvents = try Event.makeQuery().filter(raw: "(starts_at is null OR starts_at < CURRENT_TIMESTAMP) AND (ends_at is null OR ends_at > CURRENT_TIMESTAMP) AND NOT EXISTS (SELECT 1 FROM group_events WHERE event_id = events.id)").all()
+        let pastEvents = try Event.makeQuery().filter(raw: "ends_at < CURRENT_TIMESTAMP AND NOT EXISTS (SELECT 1 FROM group_events WHERE event_id = events.id)").all()
         
         return try render("Events/events", ["activeEvents": activeEvents, "pastEvents": pastEvents], for: req, with: view)
     }
@@ -53,8 +54,7 @@ final class EventsController: ResourceRepresentable {
             let imageEvent = request.formData?["image"]
         else {
             throw Abort.badRequest
-        }
-        
+        }        
      
         // Extract
         // TBD: How do we handle invalid dates? (I think I'm just consuming them as nil)
@@ -70,7 +70,6 @@ final class EventsController: ResourceRepresentable {
             .flatMap { rawDateTime in formatter.date(from: rawDateTime) }
         
         let languageRestriction = request.data["language_restriction"]?.string.flatMap { raw in Language(rawValue: raw) }
-        
 
         // Save & continue
         let event = Event(
@@ -130,7 +129,6 @@ final class EventsController: ResourceRepresentable {
         let eventProblemSeq = request.parameters["eventProblemSeq"]
         let eventProblem: EventProblem
         let problem: Problem
-        
         if(eventProblemSeq == nil) {
             // New
             problem = Problem(name: name, description: description, comparisonMethod: comparisonMethod, comparisonIgnoresSpaces: comparisonIgnoreSpaces, comparisonIgnoresBreaks: comparisonIgnoreBreaks)
@@ -230,7 +228,7 @@ final class EventsController: ResourceRepresentable {
         
         let languageRestriction = request.data["language_restriction"]?.string.flatMap { raw in Language(rawValue: raw) }
         
-        // get the Post model and save to DB
+        // get the post model and save to DB
         let event = try request.parameters.next(Event.self)
         
         event.name = name
@@ -244,12 +242,25 @@ final class EventsController: ResourceRepresentable {
         if let classIds = request.data["classes"]?.array {
             for classId in classIds {
                 if let id = classId.string, let classObj = try Group.find(id) {
-                    let classEvent = GroupEvent(groupID: classObj.id!, eventID: event.id!)
-                    try classEvent.save()
+                    let groupEvent = GroupEvent(groupID: classObj.id!, eventID: event.id!)
+                    try groupEvent.save()
                 }
             }
         }        
         return Response(redirect: "/events/#(event.eventId)/problems")
-    }    
+    }
+    
+    //GET Delete Event
+    func deleteEvent(request: Request) throws -> ResponseRepresentable {
+
+        let event = try request.parameters.next(Event.self)
+        
+        try GroupEvent.makeQuery().filter("event_id", event.id!).delete()
+        try EventProblem.makeQuery().filter("event_id", event.id!).delete()
+        try Event.makeQuery().filter("id", event.id!).delete()
+        
+        return Response(redirect: "/events")
+        //return Response(redirect: "/classes/#(class.id)/events")
+    }
     
 }

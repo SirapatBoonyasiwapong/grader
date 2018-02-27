@@ -5,7 +5,7 @@
 #export("content") {
   <h2>Hello</h2>
 
-  <img src="/uploads/#(user.id).jpg" style="width: 150px; height: 150px; float: right">
+  <img src="/uploads/#(user.id).jpg" style="width: 150px; height: 150px; float: right; background-color: grey;">
 
   <h5>Name : #(user.name)</h5>
   <p>Student ID : #(user.username)</p>

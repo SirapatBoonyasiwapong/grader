@@ -6,7 +6,8 @@
 
     #if(authenticatedUserHasTeacherRole) {
         <div class="pull-right button-group">
-            <a href="/events/new" class="ink-button"><span class="fa fa-plus"></span> Add Event</a>
+            <a href="/classes/#(class.id)/delete" class="ink-button"><span class="fa fa-trash"></span> Delete Class</a>
+            <a href="/classes/#(class.id)/events/new" class="ink-button"><span class="fa fa-plus"></span> Add Event</a>
         </div>
     }
 
@@ -18,7 +19,7 @@
       <div class="column-group gutters">
       #loop(events, "event") {
       <div class="all-25">
-        <figure class="ink-image bottom-space">
+        <figure class="ink-image bottom-space" style="background: grey;">
           <img src="/uploads/#(event.id).jpg" style="height: 200px;">
             <figcaption class="over-bottom">
               <a href="/events/#(event.id)">#(event.name)</a>

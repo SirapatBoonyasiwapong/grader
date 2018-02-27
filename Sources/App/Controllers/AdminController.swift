@@ -19,8 +19,9 @@ public final class AdminController {
     //Get Delete student
     func deleteStudent(request: Request) throws -> ResponseRepresentable {
         
-        let users = try request.parameters.next(User.self)
-        try User.makeQuery().filter("id", users.id!).delete()
+        let user = try request.parameters.next(User.self)
+        try GroupUser.makeQuery().filter("user_id", user.id!).delete()
+        try User.makeQuery().filter("id", user.id!).delete()
         
         return Response(redirect: "/users/student")
     }

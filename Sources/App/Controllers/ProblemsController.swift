@@ -88,7 +88,7 @@ final class ProblemsController {
             throw Abort.unauthorized
         }
         
-        let scores = try User.database!.raw("SELECT x.user_id, u.name, SUM(x.score) score, SUM(x.attempts) attempts, COUNT(1) problems FROM users u JOIN (SELECT s.user_id, s.event_problem_id, MAX(s.score) score, COUNT(1) attempts FROM submissions s JOIN event_problems ep ON s.event_problem_id = ep.id JOIN events e ON ep.event_id = e.id WHERE ep.event_id = ? AND (s.created_at > e.starts_at OR e.starts_at is null) AND (s.created_at < e.ends_at OR e.ends_at is null) GROUP BY user_id, event_problem_id) x ON u.id = x.user_id WHERE u.role = 1 GROUP BY x.user_id, u.name ORDER BY score DESC, attempts ASC, problems DESC", [event.id!])
+        let scores = try User.database!.raw("SELECT x.user_id, u.name, SUM(x.score) score, SUM(x.attempts) attempts, COUNT(1) problems FROM users u JOIN (SELECT s.user_id, s.event_problem_id, MAX(s.score) score, COUNT(1) attempts FROM submissions s JOIN event_problems ep ON s.event_problem_id = ep.id JOIN events e ON ep.event_id = e.id WHERE ep.event_id = ? AND (s.created_at > e.starts_at OR e.starts_at is null) AND (s.created_at < e.ends_at OR e.ends_at is null) GROUP BY s.user_id, event_problem_id) x ON u.id = x.user_id WHERE u.role = 1 GROUP BY x.user_id, u.name ORDER BY score DESC, attempts ASC, problems DESC", [event.id!])
         
         return try render("Events/scores", [
             "event": event,
@@ -196,5 +196,23 @@ final class ProblemsController {
         
         return Response(redirect: "/problems/\(problemId.string!)/cases/new")
     }
-
+    
+    //GET Delete Problem
+    func deleteProblem(request: Request) throws -> ResponseRepresentable {
+        
+        let event = try request.parameters.next(Event.self)
+        let eventProblemSeq = request.parameters["eventProblemSeq"]!
+        let eventProblem = try EventProblem.makeQuery()
+            .filter(EventProblem.self, "event_id", event.id)
+            .filter(EventProblem.self, "sequence", eventProblemSeq)
+            .first()!
+        
+        let problemID = eventProblem.problemID
+        
+        try EventProblem.makeQuery().filter("problem_id", problemID).delete()
+        try ProblemCase.makeQuery().filter("problem_id", problemID).delete()
+        try Problem.makeQuery().filter("id", problemID).delete()
+        
+        return Response(redirect: "/events/#(event.id)/problems")
+    }
 }

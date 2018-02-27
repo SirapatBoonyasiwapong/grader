@@ -16,7 +16,7 @@
         <div class="column-group gutters">
           #loop(myClasses, "class") {
           <div class="all-25">
-          <figure class="ink-image bottom-space">
+          <figure class="ink-image bottom-space" style="background: grey;">
           <img src="/uploads/#(class.id).jpg" style="height: 200px;">
             <figcaption class="over-bottom">
               <a href="/classes/#(class.id)/events">#(class.name)</a>

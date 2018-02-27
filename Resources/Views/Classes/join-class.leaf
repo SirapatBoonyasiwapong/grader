@@ -12,7 +12,9 @@
     <h3 style="color: red">Waiting</h3>
   }
   ##else() {
-    <a href="/classes/#(class.id)/join" class="ink-button"><span class="fa fa-plus"></span> Join Class</a>
+    <form method="POST">
+    <button type="submit" class="ink-button"><span class="fa fa-plus"></span> Join Class</button>
+    </form>
   }
 </div>
 

@@ -18,7 +18,7 @@
       <div class="column-group gutters">
       #loop(activeEvents, "event") {
       <div class="all-25">
-        <figure class="ink-image bottom-space">
+        <figure class="ink-image bottom-space" style="background: grey;">
           <img src="/uploads/#(event.id).jpg" style="height: 200px;">
             <figcaption class="over-bottom">
               <a href="/events/#(event.id)">#(event.name)</a>
@@ -35,16 +35,14 @@
       <div class="column-group gutters">
       #loop(pastEvents, "event") {
       <div class="all-25">
-        <figure class="ink-image bottom-space">
+        <figure class="ink-image bottom-space" style="background: grey;">
           <img src="/uploads/#(event.id).jpg" style="height: 200px;">
             <figcaption class="over-bottom">
               <a href="/events/#(event.id)">#(event.name)</a>
             </figcaption>
         </figure>
         </div>
-
     }
     </div>
     </div>
-
 }

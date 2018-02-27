@@ -30,6 +30,8 @@ final class TeacherRoutes: RouteCollection {
         builder.get("problems", Problem.parameter, "cases/new", handler: problemsController.problemCaseNew)
         builder.post("problems", Problem.parameter, "cases/new", handler: problemsController.problemCaseNewSubmit)
         
+        builder.get("events", Event.parameter, "problems", ":eventProblemSeq","delete", handler: problemsController.deleteProblem)
+        
         builder.post("submissions", Submission.parameter, "run", handler: submissionsController.manualRun)
         
         builder.get("users", handler: userController.showUser)
@@ -41,6 +43,8 @@ final class TeacherRoutes: RouteCollection {
         builder.get("events", Event.parameter, "edit", handler: eventsController.eventEditForm)
         builder.post("events", Event.parameter, "edit", handler: eventsController.eventEdit)
         
+        builder.get("events", Event.parameter, "delete", handler: eventsController.deleteEvent)
+        
         builder.get("users",Int.parameter, "changepassword", handler: loginController.changePassword)
         
         builder.get("classes", "create", handler: classesController.createClassForm)
@@ -49,5 +53,10 @@ final class TeacherRoutes: RouteCollection {
         builder.get("classes", Group.parameter, "users", handler: joinClassController.showUserInClass)
         builder.get("classes", Group.parameter, "delete", User.parameter, handler: joinClassController.deleteUser)
         builder.get("classes", Group.parameter, "accept", User.parameter, handler: joinClassController.acceptUser)
+        
+        builder.get("classes", Group.parameter, "delete", handler: classesController.deleteClass)
+        
+        builder.get("classes", Group.parameter, "events", "new", handler: classesController.createEvent)
+        builder.post("classes", Group.parameter, "events", "new", handler: classesController.submitEvent)
     }
 }
