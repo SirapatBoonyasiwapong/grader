@@ -213,6 +213,6 @@ final class ProblemsController {
         try ProblemCase.makeQuery().filter("problem_id", problemID).delete()
         try Problem.makeQuery().filter("id", problemID).delete()
         
-        return Response(redirect: "/events/#(event.id)/problems")
+        return Response(redirect: "/classes")
     }
 }

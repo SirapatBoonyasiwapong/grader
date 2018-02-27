@@ -119,10 +119,9 @@ public final class ClassesController {
     func deleteClass(request: Request) throws -> ResponseRepresentable {
         let group = try request.parameters.next(Group.self)
         
-        try Group.makeQuery().filter("id", group.id!).delete()
         try GroupUser.makeQuery().filter("group_id", group.id!).delete()
         try GroupEvent.makeQuery().filter("group_id", group.id!).delete()
-        
+        try Group.makeQuery().filter("id", group.id!).delete()
         return Response(redirect: "/classes")
     }
     
